@@ -1,12 +1,27 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import { NativeRouter, Routes, Route } from 'react-router-native';
+import Navbar from './components/Navbar';
+import Home from './pages/Home';
+import Schedule from './pages/Schedule'
+import Statistic from './pages/Statistic'
+import Notification from './pages/Notification'
+import Account from './pages/Account';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+    <NativeRouter>
       <StatusBar style="auto" />
-    </View>
+
+      <Routes>
+        <Route path='/' element={<Home />}/>
+        <Route path='/schedule' element={<Schedule />}/>
+        <Route path='/statistic' element={<Statistic />}/>
+        <Route path='/notification' element={<Notification />}/>
+        <Route path='/account' element={<Account />}/>
+      </Routes>
+      <Navbar />  
+    </NativeRouter>
   );
 }
 
