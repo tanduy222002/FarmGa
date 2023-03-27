@@ -1,15 +1,10 @@
 import React from 'react'
 import { View, Text , StyleSheet } from 'react-native'
+import { default as MaterialCommunityIcon } from 'react-native-vector-icons/MaterialCommunityIcons'
+import { default as AntDesignIcon }  from 'react-native-vector-icons/AntDesign'
 import Button from './Button'
-import { useNavigate } from 'react-router-native'
-import { default as MaterialCommunityIcon} from 'react-native-vector-icons/MaterialCommunityIcons'
-import { default as AntDesignIcon} from 'react-native-vector-icons/AntDesign'
 
-const DeviceInfo = ({name, duration, level}) => {
-    const navigate = useNavigate()
-    function navToEditDevice() {
-        navigate('/schedule/device/edit/123')
-    }
+const DeviceInfo = ({name, duration, level, onPress}) => {
     return (
         <View style={device.container}>
             <View style={device.title}>
@@ -23,10 +18,8 @@ const DeviceInfo = ({name, duration, level}) => {
                 textContent="Chỉnh sửa"
                 bg="#fde047"
                 borderColor="#facc15"
-                onPressFunction={navToEditDevice}
+                onPressFunction={onPress}
             />
-
-
         </View>
     )
 }
