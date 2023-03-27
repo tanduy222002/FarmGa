@@ -4,7 +4,7 @@ import Area from '../components/Area'
 import DeviceInfo from '../components/DeviceInfo'
 
 
-const Schedule = () => {
+const ControlDeviceList = () => {
   return (
     <View>
       <Text style={devicelist.title}>Lịch tưới</Text>
@@ -24,4 +24,4 @@ const devicelist = StyleSheet.create({
   }
 })
 
-export default Schedule
+export default ControlDeviceList

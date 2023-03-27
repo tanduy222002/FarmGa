@@ -1,7 +1,7 @@
 import React from 'react'
 import { Pressable, Text, StyleSheet } from 'react-native'
 
-const Button = ({icon, bg, borderColor, textContent}) => {
+const Button = ({icon, bg, borderColor, textContent, onPressFunction}) => {
     const button = StyleSheet.create({
         backgroundColor: bg,
         flexDirection: "row",
@@ -20,7 +20,10 @@ const Button = ({icon, bg, borderColor, textContent}) => {
     })
     
     return (
-        <Pressable style={button}>
+        <Pressable 
+            onPress={onPressFunction}
+            style={button}
+        >
             {icon}
             <Text style={button.text}>
                 {textContent}

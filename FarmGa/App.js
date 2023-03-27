@@ -6,6 +6,8 @@ import Home from './pages/Home';
 import Schedule from './pages/Schedule'
 import Statistic from './pages/Statistic'
 import Notification from './pages/Notification'
+import ControlDeviceList from './components/ControlDeviceList';
+import EditControlDevice from './pages/EditControlDevice';
 import Account from './pages/Account';
 
 export default function App() {
@@ -15,7 +17,8 @@ export default function App() {
 
       <Routes>
         <Route path='/' element={<Home />}/>
-        <Route path='/schedule' element={<Schedule />}/>
+        <Route path='/schedule' element={<ControlDeviceList />} />
+        <Route path='/schedule/device/edit/:id' element={<EditControlDevice />} />
         <Route path='/statistic' element={<Statistic />}/>
         <Route path='/notification' element={<Notification />}/>
         <Route path='/account' element={<Account />}/>

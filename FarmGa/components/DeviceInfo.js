@@ -1,28 +1,34 @@
 import React from 'react'
 import { View, Text , StyleSheet } from 'react-native'
 import Button from './Button'
+import { useNavigate } from 'react-router-native'
 import { default as MaterialCommunityIcon} from 'react-native-vector-icons/MaterialCommunityIcons'
 import { default as AntDesignIcon} from 'react-native-vector-icons/AntDesign'
 
 const DeviceInfo = ({name, duration, level}) => {
-  return (
-    <View style={device.container}>
-        <View style={device.title}>
-            <MaterialCommunityIcon style={device.title.bold} name="water-pump" size={25}/>
-            <Text style={device.title.bold}>{name}</Text>
+    const navigate = useNavigate()
+    function navToEditDevice() {
+        navigate('/schedule/device/edit/123')
+    }
+    return (
+        <View style={device.container}>
+            <View style={device.title}>
+                <MaterialCommunityIcon style={device.title.bold} name="water-pump" size={25}/>
+                <Text style={device.title.bold}>{name}</Text>
+            </View>
+            <Text style={device.item}>Thời gian: {duration} phút</Text>
+            <Text style={device.item}>Cường độ: {level}</Text>
+            <Button 
+                icon={<AntDesignIcon name="edit" size={15} color="#ffffff"/>}
+                textContent="Chỉnh sửa"
+                bg="#fde047"
+                borderColor="#facc15"
+                onPressFunction={navToEditDevice}
+            />
+
+
         </View>
-        <Text style={device.item}>Thời gian: {duration} phút</Text>
-        <Text style={device.item}>Cường độ: {level}</Text>
-        <Button 
-            icon={<AntDesignIcon name="edit" size={15} color="#ffffff"/>}
-            textContent="Chỉnh sửa"
-            bg="#fde047"
-            borderColor="#facc15"
-        />
-
-
-    </View>
-  )
+    )
 }
 
 const device = StyleSheet.create({
