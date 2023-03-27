@@ -3,12 +3,10 @@ import { View, Text } from 'react-native'
 
 const Home = () => {
   return (
-    <View>
-      <Text>
-        HomeScreen
-      </Text>
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Home Screen</Text>
     </View>
-  )
+  );
 }
 
 export default Home
