@@ -9,11 +9,12 @@ import { default as AntDesignIcon }  from 'react-native-vector-icons/AntDesign';
 import { default as FeatherIcon } from 'react-native-vector-icons/Feather'
 import { default as MaterialIcon } from 'react-native-vector-icons/MaterialIcons'
 import { default as MaterialCommunityIcon } from 'react-native-vector-icons/MaterialCommunityIcons'
-import { Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
@@ -37,7 +38,7 @@ export default function App() {
               }
               if (route.name === 'Account') {
                 return  <MaterialCommunityIcon name='account-details' size={20}/>
-              }
+              } 
             },
             tabBarActiveTintColor: 'blue',
             tabBarInactiveTintColor: 'grey',

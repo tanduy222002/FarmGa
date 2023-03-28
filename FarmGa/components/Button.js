@@ -1,7 +1,7 @@
 import React from 'react'
 import { Pressable, Text, StyleSheet } from 'react-native'
 
-const Button = ({icon, bg, borderColor, textContent}) => {
+const Button = ({icon, bg, borderColor, textContent, onPressFunction}) => {
     const button = StyleSheet.create({
         backgroundColor: bg,
         flexDirection: "row",
@@ -10,6 +10,7 @@ const Button = ({icon, bg, borderColor, textContent}) => {
         justifyContent: 'center',
         marginTop: 5,
         paddingVertical: 5,
+        paddingHorizontal: 5,
         borderRadius: 3,
         borderWidth: 1,
         borderColor: borderColor,
@@ -20,7 +21,10 @@ const Button = ({icon, bg, borderColor, textContent}) => {
     })
     
     return (
-        <Pressable style={button}>
+        <Pressable 
+            onPress={onPressFunction}
+            style={button}
+        >
             {icon}
             <Text style={button.text}>
                 {textContent}
