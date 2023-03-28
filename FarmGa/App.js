@@ -45,16 +45,16 @@ export default function App() {
           })}
         >
             <Tab.Screen name="Home" component={Home}  options={{
-            headerTitleAlign: "center", 
+            headerShown:false,
             }}/>
             <Tab.Screen name="Schedule" component={Schedule}options={{
-            headerTitleAlign: "center",}}  />
+            headerShown:false, }}  />
             <Tab.Screen name="Statistic" component={Statistic} options={{
-            headerTitleAlign: "center",}} />
+            headerShown:false,}} />
             <Tab.Screen name="Notification" component={Notification} options={{
-            headerTitleAlign: "center",}} />
+            headerShown:false,}} />
             <Tab.Screen name="Account" component={Account} options={{
-            headerTitleAlign: "center",}} />
+            headerShown:false,}} />
         </Tab.Navigator>
     </NavigationContainer>
     );

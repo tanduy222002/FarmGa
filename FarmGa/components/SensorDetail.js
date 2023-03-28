@@ -1,27 +1,31 @@
-import { View, Text, ScrollView } from 'react-native'
+import { View, Text, StyleSheet,Image, ScrollView } from 'react-native'
 import React from 'react'
-import Area from './Area'
-import TemperatureDetail from './TemperatureDetail'
-import HumidityDetail from './HumidityDetail'
-import LightDetail from './LightDetail'
-const SensorDetail = ({navigation}) => {
 
+const SensorDetail = (navigation) => {
   return (
     <ScrollView>
-    <View style={{flexDirection:"column"}}>
-    <Area name="Khu vực I">
-        <TemperatureDetail name="nhiệt độ" level={35} safetyLevel={30}/>
-        <HumidityDetail name="độ ẩm" level={25} safetyLevel={80}/>
-        <LightDetail name="ánh sáng" level={25} safetyLevel={80}/>
-    </Area>
-    <Area name="Khu vực 2">
-        <TemperatureDetail name="nhiệt độ" level={29} safetyLevel={30}/>
-        <HumidityDetail name="độ ẩm" level={50} safetyLevel={80}/>
-        <LightDetail name="ánh sáng" level={37} safetyLevel={80}/>
-    </Area>
+    <View style={device.container}>
+        <Text>Tên: LM35</Text>
+        <Text>Thang đo: -55 đến 150</Text>
+        <Text>Nhiệt độ vượt ngưỡng: 25</Text>
     </View>
     </ScrollView>
   )
 }
+const device = StyleSheet.create({
+    container: {
+        flex:1,
+        borderColor: "#94a3b8",
+        borderWidth: 1,
+        paddingLeft: 5,
+        paddingRight: 5,
+        paddingTop: 5,
+        paddingBottom: 5,
+        borderRadius: 5,
+    },
+})
+
+
+
 
 export default SensorDetail

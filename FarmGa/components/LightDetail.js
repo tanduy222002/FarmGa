@@ -1,15 +1,21 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet,Pressable } from 'react-native'
 import React from 'react'
 import { default as MaterialCommunityIcon } from 'react-native-vector-icons/MaterialCommunityIcons'
 import * as Progress from 'react-native-progress';
-const LightDetail = ({name,level,safetyLevel}) => {
+import { default as AntDesignIcon }  from 'react-native-vector-icons/AntDesign'
+const LightDetail = ({name,level,safetyLevel,onPress}) => {
   return (
     <View style={sensor.container}>
         <View style={sensor.sensorContainer}>
-            <View style={{flex: 1, flexDirection:"column", padding: 5, justifyContent:"center", alignItems: 'center',}}>
-                  <Progress.Circle color={"#DFC53D"} thickness={5} borderWidth={0} unfilledColor={"#F5E7E7"} fill={"#DBD1D0"} progress={level/30} size={50} />
-                  <Text style={{borderWidth:1, borderRadius:10,marginTop:2, fontSize:12,backgroundColor:"#5B449E"}}>Humidity</Text>
-            </View>  
+                <View style={{flex: 1, flexDirection:"column", gap:5,justifyContent:"space-around", alignItems: 'center',}}>
+                  <Text style={{borderWidth:1, borderRadius:10,marginTop:2, fontSize:12,backgroundColor:"#5B449E"}}>Temperature</Text>
+                  <Pressable
+                  onPress={onPress}
+                  style={sensor.button}>
+                        <Text >Chi tiết</Text>
+                        <AntDesignIcon name="select1" size={14} color="black"/>
+                  </Pressable>
+                </View>  
             <View style={{flex: 1, flexDirection:"column", justifyContent:"center",  alignItems: 'center',}}>
                   <Progress.Circle color={"#DFC53D"} thickness={5} borderWidth={0} unfilledColor={"#F5E7E7"} fill={"#DBD1D0"} progress={level/100} size={50} />
                   <Text>{level}%</Text>
@@ -49,9 +55,19 @@ const sensor = StyleSheet.create({
             fontWeight: 600
         }
     },
-    sensor:{
+    button:{
+        borderColor:"grey",
+        width:"90%",
+        borderWidth:1,
+        flexDirection:'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius:5,
+        backgroundColor:"#FFC10B",
+        gap:2,
+        
 
-    }
+    },
   
 })
 
