@@ -1,11 +1,17 @@
 import React from 'react'
 import { View, Text } from 'react-native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import ControlDeviceList from '../components/ControlDeviceList';
+import EditControlDevice from './EditControlDevice';
+import SensorDetail from '../components/SensorDetail';
 
+
+const Stack = createNativeStackNavigator();
 const Home = () => {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home Screen</Text>
-    </View>
+    <Stack.Navigator screenOptions={{headerShown: false }}>
+    <Stack.Screen name="SenSorDetail"component={SensorDetail} />
+    </Stack.Navigator>
   );
 }
 
