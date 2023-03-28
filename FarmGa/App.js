@@ -18,9 +18,11 @@ export default function App() {
   return (
     <NavigationContainer>
         <Tab.Navigator
-          screenOptions={({ route }) => ({
+       
+        barStyle={{ paddingBottom: 48 }}
+            screenOptions={({ route }) => ({
             tabBarIcon: () => {
-
+        
               if (route.name === 'Home') {
                 return  <FeatherIcon name='sun' size={20}/>;
               } 
@@ -37,8 +39,8 @@ export default function App() {
                 return  <MaterialCommunityIcon name='account-details' size={20}/>
               }
             },
-            tabBarActiveTintColor: 'tomato',
-            tabBarInactiveTintColor: 'gray',
+            tabBarActiveTintColor: 'blue',
+            tabBarInactiveTintColor: 'grey',
           })}
         >
             <Tab.Screen name="Home" component={Home}  options={{
