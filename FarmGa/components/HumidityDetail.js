@@ -30,11 +30,10 @@ const HumidityDetail = ({name,level,safetyLevel}) => {
 const sensor = StyleSheet.create({
     container: {
         borderColor: "#94a3b8",
-        borderWidth: 1,
         paddingTop: 5,
         paddingBottom: 5,
         width: "100%",
-        borderRadius: 5,
+   
         flexDirection:'row',
         justifyContent: "space-around",
     },
