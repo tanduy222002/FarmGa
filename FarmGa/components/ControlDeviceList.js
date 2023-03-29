@@ -9,7 +9,7 @@ const ControlDeviceList = ({navigation}) => {
     navigation.navigate("EditDeviceList")
   }
   return (
-    <View>
+    <View style={{backgroundColor:'#ebf2f6'}}>
       <Text style={devicelist.title}>Lịch tưới</Text>
       <Area name="Khu vực I">
         <DeviceInfo name="Máy bơm 1" duration={7} level={1} onPress={goToEditDevicePage}/>

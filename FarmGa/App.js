@@ -17,10 +17,11 @@ const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 export default function App() {
   return (
-    <NavigationContainer>
+    
+    <NavigationContainer >
         <Tab.Navigator
        
-        barStyle={{ paddingBottom: 48 }}
+        barStyle={{ paddingBottom: 48}}
             screenOptions={({ route }) => ({
             tabBarIcon: () => {
         
@@ -63,7 +64,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor:'red' ,
     alignItems: 'center',
     justifyContent: 'center',
   },

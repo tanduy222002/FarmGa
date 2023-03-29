@@ -19,7 +19,8 @@ const area = StyleSheet.create({
         borderWidth: 1,
         paddingHorizontal: 5,
         paddingVertical: 5,
-        marginTop: 10,
+        marginTop:5,
+        marginBottom:15,
         marginHorizontal: 10,
         width: "95%",
 
