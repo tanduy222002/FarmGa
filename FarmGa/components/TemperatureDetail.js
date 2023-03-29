@@ -41,7 +41,7 @@ const TemperatureDetail = ({name,level,safetyLevel, onPress}) => {
         <View style={sensor.sensorContainer}>
              <Text style={{color:"#3b3232",fontWeight:500, fontSize:18,  }}>TEMPERATURE </Text>
              <Text style={{color:"#3b3232",fontWeight:500, fontSize:18,  }}>{level}°C  </Text>
-             <Text style={{color:"grey",fontWeight:40, fontSize:14, marginLeft:'auto',marginRight:5, }}>20-30  </Text>
+             <Text style={{color:"grey",fontWeight:400, fontSize:14, marginLeft:'auto',marginRight:5, }}>20-30  </Text>
             <Pressable
                 onPress={onPress}>
             <AntDesignIcon style={{marginRight:10,}} name="select1" size={18} color="black"/>
