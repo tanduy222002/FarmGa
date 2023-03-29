@@ -20,7 +20,7 @@ const area = StyleSheet.create({
         paddingHorizontal: 5,
         paddingVertical: 5,
         marginTop:5,
-        marginBottom:15,
+        marginBottom:10,
         marginHorizontal: 10,
         width: "95%",
 

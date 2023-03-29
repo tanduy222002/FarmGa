@@ -11,7 +11,7 @@ const SensorView = ({navigation}) => {
   return (
     <ScrollView style={{backgroundColor:'#ebf2f6',}} >
     <View style={{flexDirection:"column",}}>
-    <Area name="Khu vực I" >
+    <Area name="Khu vực I"  >
         <TemperatureDetail name="nhiệt độ" level={35} safetyLevel={30} onPress={gotoSensorDetaiPage}/>
         <HumidityDetail name="độ ẩm" level={25} safetyLevel={80} onPress={gotoSensorDetaiPage}/>
         <LightDetail name="ánh sáng" level={25} safetyLevel={80} onPress={gotoSensorDetaiPage}/>
