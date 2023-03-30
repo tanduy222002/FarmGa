@@ -1,16 +1,20 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
-const Notifications = new Schema({
-    date:Date,
-    message:String,
-    type:String,
-});
-const Data = new Schema({
+
+const Data = new mongoose.Schema({
     date:Date,
     value: String,
     unit:String,
 });
+const Record = new mongoose.Schema({
+  name: String,
+  data: [Data],
+  threshold:{
+    lowerBound:String,
+    upperBound:String,
+},
+})
 const Area = new Schema({
   id: ObjectId,
   name: String,
@@ -21,19 +25,8 @@ const Area = new Schema({
         model:String,
     },
   },
-  record:{
-    data: [Data],
-    threshold:{
-        lowerBound:String,
-        UpperBound:String,
-    },
+  record:[Record],
 
-  },
-});
-const Sensor = new Schema({
-    id:ObjectId,
-    type:String,
-    name:String,
 });
 
 module.exports = mongoose.model('Area', Area);
