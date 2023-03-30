@@ -9,6 +9,7 @@ const Data = new mongoose.Schema({
 });
 const Record = new mongoose.Schema({
   name: String,
+  type: String,
   data: [Data],
   threshold:{
     lowerBound:String,
