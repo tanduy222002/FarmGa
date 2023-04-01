@@ -1,45 +1,40 @@
 import { View, Text, StyleSheet , Pressable } from 'react-native'
-import React from 'react'
+import React, { useState,useEffect } from 'react'
 import { default as MaterialCommunityIcon } from 'react-native-vector-icons/MaterialCommunityIcons'
 import { default as AntDesignIcon }  from 'react-native-vector-icons/AntDesign'
 
-const TemperatureDetail = ({name,level,safetyLevel, onPress}) => {
+const TemperatureDetail = ({detail, onPress}) => {
+    const [currentState,setCurrentState]=useState("I'm good");
+    const lowerBound=detail.threshold.lowerBound;
+    const upperBound=detail.threshold.upperBound;
+    const currentValue= parseFloat(detail.data[0].value);
+    useEffect(()=>{
+        if (currentValue>upperBound) {
+            setCurrentState("I'm hot")
+        }
+        else if (currentValue<lowerBound) {
+            setCurrentState("I'm cold")
+        }
+    },[])
+    
+   
+   
+      
   return (
-    // <View style={sensor.container}>
-    //     <LinearGradient colors={['#C1D5F8','#A1F1CD',]}  style={sensor.sensorContainer}>
-    //         <View style={{flex: 1, flexDirection:"column", gap:5,justifyContent:"space-around", padding:5,alignItems: 'center',}}>
-    //             <MaterialCommunityIcon name='sun-thermometer-outline' size={40} color="#575454" />
-    //             <Text style={{borderWidth:1, width:'94%',textAlign:'center', borderRadius:10, fontSize:12,backgroundColor:"#5B449E"}}>Temperature</Text>
-    //             <Pressable 
-    //                 onPress={onPress}
-    //                 style={sensor.button}>
-    //                 <Text >Chi tiết</Text>
-    //                 <AntDesignIcon name="select1" size={14} color="black"/>
-    //             </Pressable>
-    //         </View>  
-            
     //         <View style={{flex: 1, flexDirection:"column", justifyContent:'center', alignItems: 'center', paddingTop:5, paddingBottom:5 }}>
     //             <Progress.Circle color={"#FB5D5D"} thickness={7} borderWidth={0}  unfilledColor={"#F5E7E7"} fill={"#DBD1D0"} progress={level/30} size={60} />
     //             <Text style={{color:"#3b3232",fontWeight:500, fontSize:20,  }}>{level}°C </Text>   
     //         </View>  
-    //     </LinearGradient>
-    //     <LinearGradient start={{x: 0, y: 0}} end={{x: 0, y: 1}} colors={['#95ABE4', '#9FEEDB', '#C79C9C']} style={sensor.sensorContainer}>
-    //         <View style={{flexDirection:'column', alignItems:'center'}}>
-    //         <Text style={sensor.sensorContainer.bold}>Now: {level}°C  </Text>
-    //         <Text style={sensor.sensorContainer.bold}>Safety: {safetyLevel}°C</Text>
-    //         <Text style={[sensor.sensorContainer.bold,sensor.color.red]}>Warning</Text>
-    //         </View>
-    //     </LinearGradient>
-    // </View>
     <View style={sensor.container}>
         <View style={sensor.sensorContainer}>
              <MaterialCommunityIcon name='sun-thermometer-outline' size={40} color="#575454" /> 
-             <Text style={{marginLeft:15,color:"red",fontWeight:500, fontSize:22,  }}>I'm hot</Text>
+             <Text style={[sensor.statusText,(currentState=="Im hot")?sensor.color.red:(currentState=="Im cold")?sensor.color.blue:sensor.color.green
+                    ]}>{currentState}</Text>
         </View>
         <View style={sensor.sensorContainer}>
-             <Text style={{color:"#3b3232",fontWeight:500, fontSize:18,  }}>TEMPERATURE </Text>
-             <Text style={{color:"#3b3232",fontWeight:500, fontSize:18,  }}>{level}°C  </Text>
-             <Text style={{color:"grey",fontWeight:400, fontSize:14, marginLeft:'auto',marginRight:5, }}>20-30  </Text>
+             <Text style={{color:"#3b3232",fontWeight:500, fontSize:18 }}>TEMPERATURE </Text>
+             <Text style={{color:"#3b3232",fontWeight:500, fontSize:18 }}>{currentValue}°C  </Text>
+             <Text style={{color:"grey",fontWeight:400, fontSize:14, marginLeft:'auto',marginRight:5}}>{lowerBound}-{upperBound}</Text>
             <Pressable
                 onPress={onPress}>
             <AntDesignIcon style={{marginRight:10,}} name="select1" size={18} color="black"/>
@@ -94,7 +89,15 @@ const sensor = StyleSheet.create({
         green:{
             color:'green',
         },
+        blue:{
+            color:'blue',
+        }
     },
+    statusText:{
+        marginLeft:15,
+        fontWeight:500,
+        fontSize:22
+    }
     
   
 })
