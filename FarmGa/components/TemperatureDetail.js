@@ -1,9 +1,7 @@
-import { View, Text, StyleSheet, Button, Pressable } from 'react-native'
+import { View, Text, StyleSheet , Pressable } from 'react-native'
 import React from 'react'
 import { default as MaterialCommunityIcon } from 'react-native-vector-icons/MaterialCommunityIcons'
-import * as Progress from 'react-native-progress';
 import { default as AntDesignIcon }  from 'react-native-vector-icons/AntDesign'
-import {LinearGradient} from 'expo-linear-gradient';
 
 const TemperatureDetail = ({name,level,safetyLevel, onPress}) => {
   return (
