@@ -2,7 +2,7 @@ import { View, Text, StyleSheet , Pressable } from 'react-native'
 import React, { useState,useEffect } from 'react'
 import { default as MaterialCommunityIcon } from 'react-native-vector-icons/MaterialCommunityIcons'
 import { default as AntDesignIcon }  from 'react-native-vector-icons/AntDesign'
-
+import * as Progress from 'react-native-progress';
 const TemperatureDetail = ({detail, onPress}) => {
     const [currentState,setCurrentState]=useState("I'm good");
     const lowerBound=detail.threshold.lowerBound;
@@ -21,26 +21,22 @@ const TemperatureDetail = ({detail, onPress}) => {
    
       
   return (
-    //         <View style={{flex: 1, flexDirection:"column", justifyContent:'center', alignItems: 'center', paddingTop:5, paddingBottom:5 }}>
-    //             <Progress.Circle color={"#FB5D5D"} thickness={7} borderWidth={0}  unfilledColor={"#F5E7E7"} fill={"#DBD1D0"} progress={level/30} size={60} />
-    //             <Text style={{color:"#3b3232",fontWeight:500, fontSize:20,  }}>{level}°C </Text>   
-    //         </View>  
-    <View style={sensor.container}>
-        <View style={sensor.sensorContainer}>
-             <MaterialCommunityIcon name='sun-thermometer-outline' size={40} color="#575454" /> 
-             <Text style={[sensor.statusText,(currentState=="I'm hot")?sensor.color.red:(currentState=="I'm cold")?sensor.color.blue:sensor.color.green
-                    ]}>{currentState}</Text>
-        </View>
-        <View style={sensor.sensorContainer}>
-             <Text style={{color:"#3b3232",fontWeight:500, fontSize:18 }}>TEMPERATURE </Text>
-             <Text style={{color:"#3b3232",fontWeight:500, fontSize:18 }}>{currentValue}°C  </Text>
-             <Text style={{color:"grey",fontWeight:400, fontSize:14, marginLeft:'auto',marginRight:5}}>{lowerBound}-{upperBound}</Text>
-            <Pressable
-                onPress={onPress}>
-            <AntDesignIcon style={{marginRight:10,}} name="select1" size={18} color="black"/>
-            </Pressable>
-        </View>
+    <View style={[sensor.sensorContainer,{flexDirection:'row',backgroundColor:'#EAE5DF',borderWidth:1}]}>
+        <View style={sensor.container}>
+            <View style={sensor.sensorContainer}>
+                <MaterialCommunityIcon name='sun-thermometer-outline' size={40} color="#575454" /> 
+                <Text style={[sensor.statusText,(currentState=="I'm hot")?sensor.color.red:(currentState=="I'm cold")?sensor.color.blue:sensor.color.green]}>{currentState}</Text>
+            </View>
+            <View style={sensor.sensorContainer}>
+                <Text style={{color:"#3b3232",fontWeight:500, fontSize:18 }}>TEMPERATURE </Text>
+                <Text style={{color:"#3b3232",fontWeight:500, fontSize:18 }}>{currentValue}°C  </Text>
+            </View>
 
+        </View>
+        <View style={{flex:1,flexDirection:'row',marginRight:0,marginLeft:'auto',justifyContent:'center',alignItems:'center'}}>
+        <Progress.Circle color={"#FB5D5D"} thickness={6} borderWidth={0}  unfilledColor={"#F5E7E7"} fill={"#DBD1D0"} progress={currentValue/upperBound} size={55} />
+        <AntDesignIcon style={{marginRight:15,marginLeft:'auto',marginBottom:0,marginTop:'auto'}} name="select1" size={18} color="black" onPress={onPress}/>
+        </View>
     </View>
   )
 }
@@ -49,23 +45,21 @@ const TemperatureDetail = ({detail, onPress}) => {
 const sensor = StyleSheet.create({
     container: {
         borderRadius:5,
-        borderWidth:1,
+        // borderWidth:1,
         borderColor: "#94a3b8",
-        // paddingTop: 5,
-        // paddingBottom: 5,
-        width: "100%",
+        paddingLeft: 5,
+        paddingRight: 5,
+        width: "70%",
         flexDirection:'column',
         justifyContent: "space-around",
         backgroundColor:'#EAE5DF',
     },
     sensorContainer: {
-        borderRadius:10,
+        borderRadius:5,
         borderColor: "#94a3b8",
         alignItems: 'center',
         justifyContent: 'flex-start',
         gap:5,
-        marginLeft:5,
-        marginRight:5,
         flexDirection: 'row',
         bold: {
             color:"#3b3232",fontWeight:400, fontSize:18,
@@ -94,7 +88,7 @@ const sensor = StyleSheet.create({
         }
     },
     statusText:{
-        marginLeft:15,
+        marginLeft:10,
         fontWeight:500,
         fontSize:22
     }
