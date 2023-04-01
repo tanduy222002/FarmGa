@@ -28,7 +28,7 @@ const TemperatureDetail = ({detail, onPress}) => {
     <View style={sensor.container}>
         <View style={sensor.sensorContainer}>
              <MaterialCommunityIcon name='sun-thermometer-outline' size={40} color="#575454" /> 
-             <Text style={[sensor.statusText,(currentState=="Im hot")?sensor.color.red:(currentState=="Im cold")?sensor.color.blue:sensor.color.green
+             <Text style={[sensor.statusText,(currentState=="I'm hot")?sensor.color.red:(currentState=="I'm cold")?sensor.color.blue:sensor.color.green
                     ]}>{currentState}</Text>
         </View>
         <View style={sensor.sensorContainer}>

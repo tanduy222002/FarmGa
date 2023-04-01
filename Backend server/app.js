@@ -10,14 +10,14 @@ const Area=require('./model/area');
 //get all sensors
 connectDB();
 // Area.create({
-//     name:'KV3',
-//     description:'TraiGiDo',
+//     name:'KV4',
+//     description:'TraiAgain',
 //     record:[{
 //         name:"Temp_Sensor",
 //         type:"Temperature",
 //         data:[{
 //             date: new Date(),
-//             value:"25",
+//             value:"5",
 //             unit:"Celsius",
 //         },
 //         {
@@ -41,7 +41,7 @@ connectDB();
 //         type:"Humidity",
 //         data:[{
 //             date: new Date(),
-//             value:"99",
+//             value:"37",
 //             unit:"%",
 //         },
 //         {
@@ -65,7 +65,7 @@ connectDB();
 //         type:"Light",
 //         data:[{
 //             date: new Date(),
-//             value:"120",
+//             value:"20",
 //             unit:"lux",
 //         },
 //         {
