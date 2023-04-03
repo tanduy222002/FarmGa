@@ -15,7 +15,7 @@ const DeviceInfo = ({mode, name, duration, level, onPress}) => {
             <Text style={device.item}>Mode: {mode}</Text>
             <Button 
                 icon={<AntDesignIcon name="edit" size={15} color="#ffffff"/>}
-                textContent="Chỉnh sửa"
+                textContent="Edit"
                 bg="#fde047"
                 borderColor="#facc15"
                 onPressFunction={onPress}

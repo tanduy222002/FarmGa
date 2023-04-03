@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { useRoute } from '@react-navigation/native';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import Button from '../components/Button'
 import { default as FontistoIcon } from 'react-native-vector-icons/Fontisto';
 import { updateScheduleDevice } from '../service/schedule'
-import Button from '../components/Button'
+import { sendControlSignal } from '../service/controlDevice'
 
 
 const FormSelect = ({title, options, currentOption, onPressOption}) => {
@@ -40,6 +41,14 @@ const EditControlDevice = () => {
   const [mode, setMode] = useState(initMode)
   const [level, setLevel] = useState(initLevel)
 
+  function activateDevice(deviceKey, duration, level, mode) {
+    return sendControlSignal(deviceKey, {
+      duration: duration,
+      level: level,
+      mode: mode
+    })
+  }
+
   function saveDeviceConfig(areaId, scheduleId, deviceId, duration, level, mode) {
     if(duration > 0 || level > 0 || mode != null) {
       updateScheduleDevice({
@@ -50,6 +59,7 @@ const EditControlDevice = () => {
         level: level,
         mode: mode
       }).then(res => {
+        console.log(res);
         const { duration: newDuration, level: newLevel, mode : newMode } = res
         setDuration(newDuration)
         setLevel(newLevel)
@@ -101,7 +111,14 @@ const EditControlDevice = () => {
         onPressOption={updateDeviceMode}
       />
       <View style={editForm.buttonGroup}>
-        <Button bg="#38bdf8" textContent="Active device" borderColor="#0284c7"/>
+        <Button 
+          bg="#38bdf8" 
+          textContent="Active device" 
+          borderColor="#0284c7"
+          onPressFunction={() => {
+            activateDevice("bbc-led", duration, level, mode)
+          }}
+        />
         <Button 
           bg="#fde047" 
           textContent="Save" 

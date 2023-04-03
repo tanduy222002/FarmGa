@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react'
 import axios from "axios"
 
-const baseURL = "http://172.20.7.93:3000"
+const baseURL = "http://172.20.3.11:3000"
 
 export function useFetch(url, dependencies = []) {
     const [data, setData] = useState(undefined)
