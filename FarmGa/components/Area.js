@@ -24,10 +24,12 @@ const area = StyleSheet.create({
         borderWidth: 1,
         paddingHorizontal: 5,
         paddingVertical: 5,
-        marginTop:5,
-        marginBottom:10,
+        marginTop:10,
+        marginBottom:0,
         marginHorizontal: 10,
         width: "95%",
+        backgroundColor:'#E0EEEF',
+
 
     },
     title: {
