@@ -2,12 +2,14 @@ import { View, Text, StyleSheet,Pressable } from 'react-native'
 import React, {useState,useEffect} from 'react'
 import { default as MaterialCommunityIcon } from 'react-native-vector-icons/MaterialCommunityIcons'
 import * as Progress from 'react-native-progress';
-import { default as AntDesignIcon }  from 'react-native-vector-icons/AntDesign'
+import { default as Icon }  from 'react-native-vector-icons/AntDesign'
 const LightDetail = ({detail, onPress}) => {
     const [currentState,setCurrentState]=useState("I'm good");
     const lowerBound=detail.threshold.lowerBound;
     const upperBound=detail.threshold.upperBound;
     const currentValue= parseFloat(detail.data[0].value);
+    const lastCurrentValue= parseFloat(detail.data[1].value);
+    const [ratio,setRatio]=useState("+0%")
     useEffect(()=>{
         if (currentValue>upperBound) {
             setCurrentState("Ouch, it's too bright")
@@ -15,27 +17,51 @@ const LightDetail = ({detail, onPress}) => {
         else if (currentValue<lowerBound) {
             setCurrentState("Ouch, it's too dark")
         }
+        let rtio=(currentValue/lastCurrentValue)
+        if(rtio>1){
+            setRatio('+'+(((rtio-1)*100).toFixed(2)).toString()+'%')
+        }
+        else{
+            setRatio('-'+(((1-rtio)*100).toFixed(2)).toString()+'%')
+        }
         
     },[])
     return (
-        <View style={[sensor.sensorContainer,{flexDirection:'row',backgroundColor:'#EAE5DF',borderWidth:1}]}>
-            <View style={sensor.container}>
-                <View style={sensor.sensorContainer}>
-                    <MaterialCommunityIcon name='lightning-bolt-outline' size={40} color="#575454" /> 
-                    <Text style={[sensor.statusText,(currentState=="I'm good")?sensor.color.green:sensor.color.red
-                            ]}>{currentState}</Text>
+        <View style={[sensor.container,{flexDirection:'row',paddingLeft:5,paddingRight:5,justifyContent:'flex-start'}]}>
+            <View style={[sensor.container,{width:'100%',borderWidth:0}]}>
+                <View style={[sensor.container,{flexDirection:'row',borderWidth:0,paddingLeft: 5,paddingRight: 5,justifyContent:'flex-start'}]}>
+                    <Text style={[sensor.text,sensor.color.lightGrey]}>LIGHT</Text>
+                    <Text style={[sensor.text,{marginLeft:'auto',marginRight:5},(ratio[0]=='+')?sensor.color.lightGreen:sensor.color.lightRed]}>{ratio}</Text>
                 </View>
-                <View style={sensor.sensorContainer}>
-                    <Text style={{color:"#3b3232",fontWeight:500, fontSize:18 }}>LIGHT </Text>
-                    <Text style={{color:"#3b3232",fontWeight:500, fontSize:18 }}>{currentValue}%  </Text>
+                <View style={[sensor.container,{flexDirection:'row',borderWidth:0,}]}>
+                    <View style={[sensor.container,{flex:1,borderWidth:0}]}>
+                        <View style={[sensor.container,{flexDirection:'row',borderWidth:0,paddingLeft: 0,paddingRight: 5,justifyContent:'flex-start'}]}>
+                            <Icon name='water-outline' size={35} color="#0ED4F7" /> 
+                            <Text style={[sensor.text,sensor.color.darkBlue,{fontSize:25,marginLeft:5,marginRight:'auto'}]}>{currentValue}%  </Text>
+                        </View>
+                        <View style={[sensor.container,{flexDirection:'row',borderWidth:0,justifyContent:'flex-start',paddingLeft:5,paddingRight:5,}]}>
+                            <Text style={[sensor.text,{fontSize:20},(currentState=="I'am ok")?sensor.color.green:sensor.color.red]}>{currentState}</Text>
+                        </View>
+                    </View>
+                    <View style={{padding:10}}>
+                    <Progress.Circle 
+                     
+                        strokeCap='square'  
+                        
+                        color={"#FFC10B"} 
+                        thickness={6} 
+                        borderWidth={0}  
+                        unfilledColor={"#F5E7E7"}
+                        fill={"#DBD1D0"}
+                     
+                        progress={(currentValue/upperBound)} 
+                        size={55} 
+                    />
+                    </View>
                 </View>
-    
             </View>
-            <View style={{flex:1,flexDirection:'row',marginRight:0,marginLeft:'auto',justifyContent:'center',alignItems:'center'}}>
-            <Progress.Circle color={"#FFEC1A"} thickness={6} borderWidth={0}  unfilledColor={"#F5E7E7"} fill={"#DBD1D0"} progress={currentValue/upperBound} size={55} />
-            <AntDesignIcon style={{marginRight:15,marginLeft:'auto',marginBottom:0,marginTop:'auto'}} name="select1" size={18} color="black" onPress={onPress}/>
-            </View>
-        </View>
+         
+        </View>    
       )
     }
     
@@ -43,14 +69,18 @@ const LightDetail = ({detail, onPress}) => {
     const sensor = StyleSheet.create({
         container: {
             borderRadius:5,
-            // borderWidth:1,
+            borderWidth:1,
             borderColor: "#94a3b8",
-            paddingLeft: 5,
-            paddingRight: 5,
-            width: "70%",
+         
+            width: "100%",
             flexDirection:'column',
-            justifyContent: "space-around",
-            backgroundColor:'#EAE5DF',
+            justifyContent: "center",
+            alignItems:'center',
+            backgroundColor:'white',
+        },
+        text:{
+            fontWeight:800,
+            fontSize:18,
         },
         sensorContainer: {
             borderRadius:5,
@@ -58,8 +88,9 @@ const LightDetail = ({detail, onPress}) => {
             alignItems: 'center',
             justifyContent: 'flex-start',
             gap:5,
-            
             flexDirection: 'row',
+            paddingTop:5,
+            paddingLeft :5,
             bold: {
                 color:"#3b3232",fontWeight:400, fontSize:18,
             }
@@ -76,6 +107,9 @@ const LightDetail = ({detail, onPress}) => {
             backgroundColor:"#FFC10B",
         },
         color:{
+            lightRed:{
+                color:'#F13B84',
+            },
             red:{
                 color:'red',
             },
@@ -84,13 +118,23 @@ const LightDetail = ({detail, onPress}) => {
             },
             blue:{
                 color:'blue',
-            }
+            },
+            lightGreen:{
+                color:'#01E47B',
+            },
+            lightGrey:{
+                color:'#9CA3B6',
+            },
+            darkBlue:{
+                color:'#2B416B',
+            },
         },
         statusText:{
             marginLeft:10,
             fontWeight:500,
-            fontSize:22
+            fontSize:22,
         }
+    
         
       
     })

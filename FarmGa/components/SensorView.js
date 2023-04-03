@@ -14,7 +14,7 @@ const SensorView = ({navigation}) => {
   const [areaList, setAreaList] = useState([])
 
   useEffect(() => {
-    fetch("http://192.168.1.107:3000/areas")
+    fetch("10.229.61.55:3000/areas")
     .then(res => res.json())
     .then(data => {
       setAreaList(data)
