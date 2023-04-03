@@ -36,7 +36,7 @@ export default function App() {
               }
               if (route.name === 'Notification') {
                 return <FeatherIcon name='bell' size={20}/>
-              }
+              } 
               if (route.name === 'Account') {
                 return  <MaterialCommunityIcon name='account-details' size={20}/>
               } 

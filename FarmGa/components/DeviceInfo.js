@@ -1,18 +1,18 @@
-import React from 'react'
 import { View, Text , StyleSheet } from 'react-native'
 import { default as MaterialCommunityIcon } from 'react-native-vector-icons/MaterialCommunityIcons'
 import { default as AntDesignIcon }  from 'react-native-vector-icons/AntDesign'
 import Button from './Button'
 
-const DeviceInfo = ({name, duration, level, onPress}) => {
+const DeviceInfo = ({mode, name, duration, level, onPress}) => {
     return (
         <View style={device.container}>
             <View style={device.title}>
                 <MaterialCommunityIcon style={device.title.bold} name="water-pump" size={25}/>
                 <Text style={device.title.bold}>{name}</Text>
             </View>
-            <Text style={device.item}>Thời gian: {duration} phút</Text>
-            <Text style={device.item}>Cường độ: {level}</Text>
+            <Text style={device.item}>Duration: {duration} minute</Text>
+            <Text style={device.item}>Level: {level}</Text>
+            <Text style={device.item}>Mode: {mode}</Text>
             <Button 
                 icon={<AntDesignIcon name="edit" size={15} color="#ffffff"/>}
                 textContent="Chỉnh sửa"

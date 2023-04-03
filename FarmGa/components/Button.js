@@ -11,6 +11,7 @@ const Button = ({icon, bg, borderColor, textContent, onPressFunction}) => {
         marginTop: 5,
         paddingVertical: 5,
         paddingHorizontal: 5,
+        maxWidth: 150,
         borderRadius: 3,
         borderWidth: 1,
         borderColor: borderColor,

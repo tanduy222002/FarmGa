@@ -1,7 +1,10 @@
 import { useState } from 'react'
+import { useRoute } from '@react-navigation/native';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { default as FontistoIcon } from 'react-native-vector-icons/Fontisto';
+import { updateScheduleDevice } from '../service/schedule'
 import Button from '../components/Button'
+
 
 const FormSelect = ({title, options, currentOption, onPressOption}) => {
   return (
@@ -10,10 +13,11 @@ const FormSelect = ({title, options, currentOption, onPressOption}) => {
       {options.map((op, i) => {
         return (
           <TouchableOpacity 
-            style={i == currentOption ? activeItem : inactiveItem} 
-            onPress={() => {onPressOption(i)}}
+            style={op == currentOption ? activeItem : inactiveItem} 
+            onPress={() => {onPressOption(op)}}
+            key={i}
           >
-            <FontistoIcon width={30} name={i == currentOption ?  "radio-btn-active" : "radio-btn-passive"}/>
+            <FontistoIcon width={30} name={op == currentOption ?  "radio-btn-active" : "radio-btn-passive"}/>
             <Text key={i}>{op}</Text>
           </TouchableOpacity>
         )
@@ -22,58 +26,90 @@ const FormSelect = ({title, options, currentOption, onPressOption}) => {
   )
 }
 
-
+const levelOptions = [1,2,3]
+const modeOptions = ["Spray", "Shower", "Heavy Shower"]
 
 const EditControlDevice = () => {
-  const [duration, setDuration] = useState(0)
-  const [mode, setMode] = useState(-1)
-  const [level, setLevel] = useState(-1)
+  const route = useRoute()
+  const areaId = route.params.areaId
+  const scheduleId = route.params.scheduleId
+  const {name, _id: deviceId, duration : initDuration, mode : initMode, level : initLevel} = route.params.device
+
+
+  const [duration, setDuration] = useState(initDuration)
+  const [mode, setMode] = useState(initMode)
+  const [level, setLevel] = useState(initLevel)
+
+  function saveDeviceConfig(areaId, scheduleId, deviceId, duration, level, mode) {
+    if(duration > 0 || level > 0 || mode != null) {
+      updateScheduleDevice({
+        areaId: areaId,
+        scheduleId: scheduleId,
+        deviceId: deviceId,
+        duration: duration,
+        level: level,
+        mode: mode
+      }).then(res => {
+        const { duration: newDuration, level: newLevel, mode : newMode } = res
+        setDuration(newDuration)
+        setLevel(newLevel)
+        setMode(newMode)
+      })
+    }
+  }
 
   function updateDeviceMode(newMode) {
     setMode(prevMode => {
       // active select item if it is either not chosen or a different item
-      if(prevMode === -1 || prevMode !== newMode) return newMode
-      return -1;
+      if(prevMode == null || prevMode !== newMode) return newMode
+      return null;
     })
   }
 
   function updateDeviceLevel(newLevel) {
     // active select item if it is either not chosen or a different item
     setLevel(prevLevel => {
-      if(prevLevel === -1 || prevLevel !== newLevel) return newLevel
-      return -1;
+      if(prevLevel == null || prevLevel !== newLevel) return newLevel
+      return null;
     })
   }
 
   return (
     <View style={editForm.formContainer}>
-      <Text style={editForm.title}>Chỉnh sửa thông tin thiết bị</Text>
+      <Text style={editForm.title}>{name}</Text>
       <View style={editForm.inputContainer}>
-          <Text style={editForm.title}>Thời gian tưới</Text>
+          <Text style={editForm.title}>Duration</Text>
           <View style={editForm.flexItem}>
             <TextInput 
-                placeholder='Thời gian tưới'
+                placeholder='Duration'
                 value={duration}
-                onChangeText={newDuration => setDuration(newDuration)}
+                onChangeText={newDuration => setDuration(parseInt(newDuration))}
             />
-            <Text style={{marginLeft: 10}}>phút</Text>
+            <Text style={{marginLeft: 10}}>minute</Text>
           </View>
       </View>
       <FormSelect 
-        title="Cường độ tưới"
-        options={[1,2,3]} 
+        title="Level"
+        options={levelOptions} 
         currentOption={level}
         onPressOption={updateDeviceLevel}
       />
       <FormSelect 
-        title="Chế độ tưới"
-        options={["Phun sương", "Nhỏ giọt", "Tưới dầm"]} 
+        title="Mode"
+        options={modeOptions} 
         currentOption={mode}
         onPressOption={updateDeviceMode}
       />
       <View style={editForm.buttonGroup}>
-        <Button bg="#38bdf8" textContent="Kích hoạt" borderColor="#0284c7"/>
-        <Button bg="#fde047" textContent="Xác nhận" borderColor="#facc15"/>
+        <Button bg="#38bdf8" textContent="Active device" borderColor="#0284c7"/>
+        <Button 
+          bg="#fde047" 
+          textContent="Save" 
+          borderColor="#facc15"
+          onPressFunction={() => {
+            saveDeviceConfig(areaId, scheduleId, deviceId, duration, level, mode)
+          }}
+        />
       </View>
     </View>
   )
