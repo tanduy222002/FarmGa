@@ -11,8 +11,11 @@ import { getScheduleTime, getScheduleDate } from '../utils/formatDateTime'
 const NewScheduleForm = () => {
     const [selectedIndex, setSelectedIndex] = useState(0)
     const [date, setDate] = useState(new Date())
-    const {data : areaList, loading} = useFetch('areas/name')
+    const {data : areaList, loading} = useFetch('area/name')
 
+    function selectDate(event, data) {
+        const { type, nativeEvent: {timestamp}} = event
+    }
     function createSchedule() {
         return createNewSchedule({
             areaName: areaList[selectedIndex].name,
@@ -26,7 +29,7 @@ const NewScheduleForm = () => {
         ? <Text>loading...</Text> 
         :
             <View style={form.container}>   
-                <DateTimePicker value={date} onChange={setDate} mode={Platform.OS === "ios" ? "datetime" : "date"}/>
+                <DateTimePicker value={date} onChange={selectDate} mode={Platform.OS === "ios" ? "datetime" : "date"}/>
                 <Picker 
                     selectedValue={areaList[selectedIndex].name}
                     style={form.picker}

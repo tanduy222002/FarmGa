@@ -18,7 +18,7 @@ const FormSelect = ({title, options, currentOption, onPressOption}) => {
             onPress={() => {onPressOption(op)}}
             key={i}
           >
-            <FontistoIcon width={30} name={op == currentOption ?  "radio-btn-active" : "radio-btn-passive"}/>
+            <FontistoIcon size={18} name={op == currentOption ?  "radio-btn-active" : "radio-btn-passive"}/>
             <Text key={i}>{op}</Text>
           </TouchableOpacity>
         )
@@ -153,6 +153,7 @@ const editForm = StyleSheet.create({
   flexItem: {
     alignItems: "center",
     flexDirection: "row",
+    gap: 10,
     backgroundColor: "#f1f5f9",
     borderColor: "#0891b2",
     borderRadius: 5,

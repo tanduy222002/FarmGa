@@ -10,9 +10,19 @@ const DeviceInfo = ({mode, name, duration, level, onPress}) => {
                 <MaterialCommunityIcon style={device.title.bold} name="water-pump" size={25}/>
                 <Text style={device.title.bold}>{name}</Text>
             </View>
-            <Text style={device.item}>Duration: {duration} minute</Text>
-            <Text style={device.item}>Level: {level}</Text>
-            <Text style={device.item}>Mode: {mode}</Text>
+            {duration > 0 
+                ? <Text style={device.item}>Duration: <Text style={device.set}>{`${duration} minute`}</Text></Text> 
+                : <Text style={device.item}>Duration: <Text style={device.notset}>Not set</Text></Text>
+            }
+            {level != -1 
+                ? <Text style={device.item}>Level: <Text style={device.set}>{`${level}`}</Text></Text> 
+                : <Text style={device.item}>Level: <Text style={device.notset}>Not set</Text></Text>
+            }
+            {mode != -1 
+                ? <Text style={device.item}>Mode: <Text style={device.set}>{`${mode}`}</Text></Text> 
+                : <Text style={device.item}>Mode: <Text style={device.notset}>Not set</Text></Text>
+            }
+
             <Button 
                 icon={<AntDesignIcon name="edit" size={15} color="#ffffff"/>}
                 textContent="Edit"
@@ -45,7 +55,20 @@ const device = StyleSheet.create({
         }
     },
     item: {
-        color: "#64748b"
+        color: "#000000",
+        fontWeight: 600,
+    },
+    set: {
+        color: "#64748b",
+        fontWeight: 600,
+        fontStyle: "italic"
+
+    },
+    notset: {
+        color: "#dc2626",
+        fontSize: 14,
+        fontWeight: 500,
+        fontStyle: "italic"
     }
 })
 
