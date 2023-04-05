@@ -12,7 +12,6 @@ const scheduleRoute = require('./routes/scheduleRoute')
 const controlRoute = require('./routes/controlRoute')
 
 connectDB();
-
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))

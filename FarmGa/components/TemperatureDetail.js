@@ -71,7 +71,7 @@ const TemperatureDetail = ({detail, onPress}) => {
                  
                     strokeCap='square'  
                     
-                    color={"green"} 
+                    color={"#F3478E"} 
                     thickness={6} 
                     borderWidth={0}  
                     unfilledColor={"#F5E7E7"}

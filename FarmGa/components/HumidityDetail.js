@@ -46,7 +46,7 @@ const HumidityDetail = ({detail, onPress}) => {
                      
                         strokeCap='square'  
                         
-                        color={"#2E87FC"} 
+                        color={"#0ED4F7"} 
                         thickness={6} 
                         borderWidth={0}  
                         unfilledColor={"#F5E7E7"}

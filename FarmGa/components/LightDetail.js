@@ -36,11 +36,11 @@ const LightDetail = ({detail, onPress}) => {
                 <View style={[sensor.container,{flexDirection:'row',borderWidth:0,}]}>
                     <View style={[sensor.container,{flex:1,borderWidth:0}]}>
                         <View style={[sensor.container,{flexDirection:'row',borderWidth:0,paddingLeft: 0,paddingRight: 5,justifyContent:'flex-start'}]}>
-                            <Icon name='water-outline' size={35} color="#0ED4F7" /> 
+                            <MaterialCommunityIcon name='lightning-bolt-outline' size={35} color="#FEBC62" /> 
                             <Text style={[sensor.text,sensor.color.darkBlue,{fontSize:25,marginLeft:5,marginRight:'auto'}]}>{currentValue}%  </Text>
                         </View>
                         <View style={[sensor.container,{flexDirection:'row',borderWidth:0,justifyContent:'flex-start',paddingLeft:5,paddingRight:5,}]}>
-                            <Text style={[sensor.text,{fontSize:20},(currentState=="I'am ok")?sensor.color.green:sensor.color.red]}>{currentState}</Text>
+                            <Text style={[sensor.text,{fontSize:20},(currentState=="I'm good")?sensor.color.green:sensor.color.red]}>{currentState}</Text>
                         </View>
                     </View>
                     <View style={{padding:10}}>
@@ -48,7 +48,7 @@ const LightDetail = ({detail, onPress}) => {
                      
                         strokeCap='square'  
                         
-                        color={"#FFC10B"} 
+                        color={"#FEBC62"} 
                         thickness={6} 
                         borderWidth={0}  
                         unfilledColor={"#F5E7E7"}
