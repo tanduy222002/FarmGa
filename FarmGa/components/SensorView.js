@@ -8,9 +8,6 @@ import axios from "axios"
 import { default as AntDesignIcon }  from 'react-native-vector-icons/AntDesign'
 import { getScheduleDate,getScheduleTime } from '../utils/formatDateTime'
 const SensorView = ({navigation}) => {
-  function gotoSensorDetaiPage(){
-      navigation.navigate("SensorDetail")
-  }
   const [areaList,setAreaList] = useState(undefined)
   const [flag, setFlag] = useState(false)
   const [error, setError] = useState(false)
@@ -43,7 +40,7 @@ const SensorView = ({navigation}) => {
                   date=new Date()
                   date=getScheduleTime(date)
                   Alert.alert('Update successfully', 'Data was updated at '+date, [
-                    {text: 'OK', onPress: () => console.log('OK Pressed')},
+                    {text: 'OK'},
                   ]);
                 }} style={{backgroundColor:'#8CFB8C',width:30,height:30,borderRadius:1000,justifyContent:'center',alignItems:'center',}}>
                    <AntDesignIcon name='sync' size={20}/>
@@ -64,15 +61,14 @@ const SensorView = ({navigation}) => {
         <Area name={area.name} key={index}>
           <TemperatureDetail 
             detail={area.record[0]}
-            onPress={gotoSensorDetaiPage}
           />
           <HumidityDetail  
             detail={area.record[1]}
-            onPress={gotoSensorDetaiPage}
+            
           />
           <LightDetail 
             detail={area.record[2]} 
-            onPress={gotoSensorDetaiPage}
+            
           />
         </Area>
       )

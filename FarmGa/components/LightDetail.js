@@ -3,29 +3,27 @@ import React, {useState,useEffect} from 'react'
 import { default as MaterialCommunityIcon } from 'react-native-vector-icons/MaterialCommunityIcons'
 import * as Progress from 'react-native-progress';
 import { default as Icon }  from 'react-native-vector-icons/AntDesign'
-const LightDetail = ({detail, onPress}) => {
-    const [currentState,setCurrentState]=useState("I'm good");
+const LightDetail = ({detail}) => {
+    let currentState="I'm good";
     const lowerBound=detail.threshold.lowerBound;
     const upperBound=detail.threshold.upperBound;
     const currentValue= parseFloat(detail.data[0].value);
     const lastCurrentValue= parseFloat(detail.data[1].value);
-    const [ratio,setRatio]=useState("+0%")
-    useEffect(()=>{
-        if (currentValue>upperBound) {
-            setCurrentState("Ouch, it's too bright")
-        }
-        else if (currentValue<lowerBound) {
-            setCurrentState("Ouch, it's too dark")
-        }
-        let rtio=(currentValue/lastCurrentValue)
-        if(rtio>1){
-            setRatio('+'+(((rtio-1)*100).toFixed(2)).toString()+'%')
-        }
-        else{
-            setRatio('-'+(((1-rtio)*100).toFixed(2)).toString()+'%')
-        }
-        
-    },[])
+    let ratio="+0%";
+    if (currentValue>upperBound) {
+        currentState="Ouch, it's too bright"
+    }
+    else if (currentValue<lowerBound) {
+        currentState="Ouch, it's too dark"
+    }
+    else  currentState="I'm good"
+    let rtio=(currentValue/lastCurrentValue)
+    if(rtio>1){
+        ratio='+'+(((rtio-1)*100).toFixed(2)).toString()+'%'
+    }
+    else{
+        ratio='-'+(((1-rtio)*100).toFixed(2)).toString()+'%'
+    }
     return (
         <View style={[sensor.container,{flexDirection:'row',paddingLeft:5,paddingRight:5,justifyContent:'flex-start'}]}>
             <View style={[sensor.container,{width:'100%',borderWidth:0}]}>

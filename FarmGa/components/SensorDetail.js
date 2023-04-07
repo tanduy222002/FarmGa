@@ -1,13 +1,22 @@
-import { View, Text, StyleSheet,Image, ScrollView } from 'react-native'
+import { View, Text, StyleSheet,Image, ScrollView,} from 'react-native'
 import React from 'react'
+import Slider from '@react-native-community/slider';
 
 const SensorDetail = (navigation) => {
   return (
     <ScrollView>
     <View style={device.container}>
-        <Text>Tên: LM35</Text>
+        <Text>Tên: 55</Text>
         <Text>Thang đo: -55 đến 150</Text>
         <Text>Nhiệt độ vượt ngưỡng: 25</Text>
+        <Slider
+        style={{width: 200, height: 40}}
+        minimumValue={0}
+        maximumValue={100}
+        minimumTrackTintColor="grey"
+        value={1}
+       
+      />
        </View>
    
     </ScrollView>
