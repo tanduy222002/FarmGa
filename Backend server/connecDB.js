@@ -6,10 +6,9 @@ const connectDB = async () => {
             useUnifiedTopology: true,
             useNewUrlParser: true,
         })
-    .then(()=>{
-        console.log('connect')
-    }     
-    )
+        .then(() => {
+            console.log('connect')
+        })
     } catch(err) {
         console.log(err);
     }

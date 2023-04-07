@@ -47,5 +47,6 @@ router.post('/device', async (req, res) => {
             }
         }
     }).exec()
- */
+*/
+
 module.exports = router
