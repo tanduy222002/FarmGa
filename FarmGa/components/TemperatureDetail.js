@@ -24,7 +24,7 @@ const TemperatureDetail = ({detail}) => {
     }
     else currentState="It's a nice day"
     const rtio=(currentValue/lastCurrentValue)
-        if(rtio>1){
+        if(rtio>=1){
             ratio='+'+(((rtio-1)*100).toFixed(2)).toString()+'%'
         }
         else{
@@ -55,7 +55,6 @@ const TemperatureDetail = ({detail}) => {
                 <Progress.Circle 
                  
                     strokeCap='square'  
-                    
                     color={"#F3478E"} 
                     thickness={6} 
                     borderWidth={0}  

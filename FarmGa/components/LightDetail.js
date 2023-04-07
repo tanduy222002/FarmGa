@@ -18,7 +18,7 @@ const LightDetail = ({detail}) => {
     }
     else  currentState="I'm good"
     let rtio=(currentValue/lastCurrentValue)
-    if(rtio>1){
+    if(rtio>=1){
         ratio='+'+(((rtio-1)*100).toFixed(2)).toString()+'%'
     }
     else{
@@ -35,7 +35,7 @@ const LightDetail = ({detail}) => {
                     <View style={[sensor.container,{flex:1,borderWidth:0}]}>
                         <View style={[sensor.container,{flexDirection:'row',borderWidth:0,paddingLeft: 0,paddingRight: 5,justifyContent:'flex-start'}]}>
                             <MaterialCommunityIcon name='lightning-bolt-outline' size={35} color="#FEBC62" /> 
-                            <Text style={[sensor.text,sensor.color.darkBlue,{fontSize:25,marginLeft:5,marginRight:'auto'}]}>{currentValue}%  </Text>
+                            <Text style={[sensor.text,sensor.color.darkBlue,{fontSize:25,marginLeft:5,marginRight:'auto'}]}>{currentValue} lux </Text>
                         </View>
                         <View style={[sensor.container,{flexDirection:'row',borderWidth:0,justifyContent:'flex-start',paddingLeft:5,paddingRight:5,}]}>
                             <Text style={[sensor.text,{fontSize:20},(currentState=="I'm good")?sensor.color.green:sensor.color.red]}>{currentState}</Text>

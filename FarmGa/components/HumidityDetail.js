@@ -22,7 +22,7 @@ const HumidityDetail = ({detail}) => {
     }
    
     const rtio=(currentValue/lastCurrentValue)
-        if(rtio>1){
+        if(rtio>=1){
             ratio='+'+(((rtio-1)*100).toFixed(2)).toString()+'%'
         }
         else{
