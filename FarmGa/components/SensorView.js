@@ -19,6 +19,7 @@ const SensorView = ({navigation}) => {
          .then(res => setAreaList(res.data))
          .catch(() => setError(true))
          .finally(() => setLoading(false))
+         console.log(areaList)
 },[flag])
 
  

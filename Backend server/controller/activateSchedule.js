@@ -1,5 +1,5 @@
 require('dotenv').config()
-const connectDB = require('../connecDB')
+const connectDB = require('../connectDB')
 const axios = require('axios')
 const Area = require('../model/area')
 
