@@ -47,7 +47,6 @@ const ControlDeviceList = ({navigation}) => {
 
   return (
     <View style={{backgroundColor:'#ebf2f6'}}>
-      <Text style={devicelist.title}>Lịch tưới</Text>
       <View style={devicelist.btnWrapper}>
         <Button 
           icon={<AntDesignIcon name="plus" size={30} color="#fff"/>}

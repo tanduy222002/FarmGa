@@ -41,11 +41,11 @@ const EditControlDevice = () => {
   const [mode, setMode] = useState(initMode)
   const [level, setLevel] = useState(initLevel)
 
-  function activateDevice(deviceKey, duration, level, mode) {
-    return sendControlSignal(deviceKey, {
-      duration: duration,
-      level: level,
-      mode: mode
+  function activateDevice(device) {
+    return sendControlSignal(device.key, {
+      duration: device.duration,
+      level: device.level,
+      mode: device.mode
     })
   }
 
@@ -116,7 +116,8 @@ const EditControlDevice = () => {
           textContent="Active device" 
           borderColor="#0284c7"
           onPressFunction={() => {
-            activateDevice("bbc-led", duration, level, mode)
+            //activateDevice("bbc-led", duration, level, mode)
+            activateDevice(device)
           }}
         />
         <Button 

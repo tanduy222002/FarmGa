@@ -1,30 +1,29 @@
 const express = require('express')
 const axios = require('axios')
+const Area = require('../model/area')
+const activateDevice = require('../controller/activateSchedule')
 
 const router = express.Router()
 
 
-router.post('/:key', (req, res) => {
-    const {key: deviceKey} = req.params
-    console.log("key: ", deviceKey)
-    axios.post(`https://io.adafruit.com/api/v2/${process.env.USER_NAME}/groups/control-pump/feeds/${deviceKey}/data`, {
-        datum: {
-            value: 17
-        }
-    }, {
-        headers: {
-            "X-AIO-Key": "aio_MCMy71JIH3aclwI3bQi6dzrhg6NS"
-        }
-    }, {
-        params: {
-            "x-aio-key": "aio_MCMy71JIH3aclwI3bQi6dzrhg6NS"
-        }
-    }
-    )
-    .then(res => console.log(res.data))
-    .catch(err => console.error("error: ", err))
+router.post('/activate', async (req, res) => {
+    const device = req.body
+    const deviceRes = await activateDevice(device)
+
 
     res.send({Name: 1})
 })
+/**
+ *     const temp = await Area.updateOne({name: "KV1"}, {
+        $push: {
+            availControlDevices: {
+                name: "Pump 1",
+                type: "Control_Pump",
+                groupKey: "default",
+                deviceKey: "pump",
+            }
+        }
+    }).exec()
+ */
 
 module.exports = router
