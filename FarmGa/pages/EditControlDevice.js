@@ -42,11 +42,7 @@ const EditControlDevice = () => {
   const [level, setLevel] = useState(initLevel)
 
   function activateDevice(device) {
-    return sendControlSignal(device.key, {
-      duration: device.duration,
-      level: device.level,
-      mode: device.mode
-    })
+    return sendControlSignal(device)
   }
 
   function saveDeviceConfig(areaId, scheduleId, deviceId, duration, level, mode) {
@@ -117,7 +113,7 @@ const EditControlDevice = () => {
           borderColor="#0284c7"
           onPressFunction={() => {
             //activateDevice("bbc-led", duration, level, mode)
-            activateDevice(device)
+            activateDevice(route.params.device)
           }}
         />
         <Button 

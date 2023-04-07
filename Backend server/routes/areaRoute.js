@@ -5,7 +5,6 @@ const router = express.Router()
 
 
 router.get('/all', async (req, res) => {
-    console.log('test')
     const areaList = await Area.find({}).exec()
     res.json(areaList)
     
