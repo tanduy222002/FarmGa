@@ -3,29 +3,27 @@ import React, {useState,useEffect} from 'react'
 import { default as MaterialCommunityIcon } from 'react-native-vector-icons/MaterialCommunityIcons'
 import * as Progress from 'react-native-progress';
 import { default as Icon }  from 'react-native-vector-icons/AntDesign'
-const LightDetail = ({detail, onPress}) => {
-    const [currentState,setCurrentState]=useState("I'm good");
+const LightDetail = ({detail}) => {
+    let currentState="I'm good";
     const lowerBound=detail.threshold.lowerBound;
     const upperBound=detail.threshold.upperBound;
     const currentValue= parseFloat(detail.data[0].value);
     const lastCurrentValue= parseFloat(detail.data[1].value);
-    const [ratio,setRatio]=useState("+0%")
-    useEffect(()=>{
-        if (currentValue>upperBound) {
-            setCurrentState("Ouch, it's too bright")
-        }
-        else if (currentValue<lowerBound) {
-            setCurrentState("Ouch, it's too dark")
-        }
-        let rtio=(currentValue/lastCurrentValue)
-        if(rtio>1){
-            setRatio('+'+(((rtio-1)*100).toFixed(2)).toString()+'%')
-        }
-        else{
-            setRatio('-'+(((1-rtio)*100).toFixed(2)).toString()+'%')
-        }
-        
-    },[])
+    let ratio="+0%";
+    if (currentValue>upperBound) {
+        currentState="Ouch, it's too bright"
+    }
+    else if (currentValue<lowerBound) {
+        currentState="Ouch, it's too dark"
+    }
+    else  currentState="I'm good"
+    let rtio=(currentValue/lastCurrentValue)
+    if(rtio>1){
+        ratio='+'+(((rtio-1)*100).toFixed(2)).toString()+'%'
+    }
+    else{
+        ratio='-'+(((1-rtio)*100).toFixed(2)).toString()+'%'
+    }
     return (
         <View style={[sensor.container,{flexDirection:'row',paddingLeft:5,paddingRight:5,justifyContent:'flex-start'}]}>
             <View style={[sensor.container,{width:'100%',borderWidth:0}]}>
@@ -36,11 +34,11 @@ const LightDetail = ({detail, onPress}) => {
                 <View style={[sensor.container,{flexDirection:'row',borderWidth:0,}]}>
                     <View style={[sensor.container,{flex:1,borderWidth:0}]}>
                         <View style={[sensor.container,{flexDirection:'row',borderWidth:0,paddingLeft: 0,paddingRight: 5,justifyContent:'flex-start'}]}>
-                            <Icon name='water-outline' size={35} color="#0ED4F7" /> 
+                            <MaterialCommunityIcon name='lightning-bolt-outline' size={35} color="#FEBC62" /> 
                             <Text style={[sensor.text,sensor.color.darkBlue,{fontSize:25,marginLeft:5,marginRight:'auto'}]}>{currentValue}%  </Text>
                         </View>
                         <View style={[sensor.container,{flexDirection:'row',borderWidth:0,justifyContent:'flex-start',paddingLeft:5,paddingRight:5,}]}>
-                            <Text style={[sensor.text,{fontSize:20},(currentState=="I'am ok")?sensor.color.green:sensor.color.red]}>{currentState}</Text>
+                            <Text style={[sensor.text,{fontSize:20},(currentState=="I'm good")?sensor.color.green:sensor.color.red]}>{currentState}</Text>
                         </View>
                     </View>
                     <View style={{padding:10}}>
@@ -48,7 +46,7 @@ const LightDetail = ({detail, onPress}) => {
                      
                         strokeCap='square'  
                         
-                        color={"#FFC10B"} 
+                        color={"#FEBC62"} 
                         thickness={6} 
                         borderWidth={0}  
                         unfilledColor={"#F5E7E7"}

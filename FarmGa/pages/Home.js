@@ -3,13 +3,11 @@ import { View, Text ,Image} from 'react-native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SensorDetail from '../components/SensorDetail';
 import SensorView from '../components/SensorView';
-import {Dimensions} from 'react-native';
 
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height*0.25;
 const Stack = createNativeStackNavigator();
 const Home = () => {
   return (
+    
     <Stack.Navigator screenOptions={{headerShown: true, headerTitleAlign:'center'}}>
     <Stack.Screen name="SenSorView" component={SensorView} 
     // options={{

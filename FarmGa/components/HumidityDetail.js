@@ -5,25 +5,31 @@ import * as Progress from 'react-native-progress';
 import { default as Icon }  from 'react-native-vector-icons/Ionicons'
 
 
-const HumidityDetail = ({detail, onPress}) => {
-    const [currentState,setCurrentState]=useState("It's a nice day");
+const HumidityDetail = ({detail}) => {
+    let currentState="It's a nice day";
     const lowerBound=detail.threshold.lowerBound;
     const upperBound=detail.threshold.upperBound;
     const currentValue= parseFloat(detail.data[0].value);
     const lastCurrentValue= parseFloat(detail.data[1].value);
-    const [ratio,setRatio]=useState("+0%")
-    useEffect(()=>{
-        if (currentValue>upperBound && currentValue<lowerBound) {
-            setCurrentState("Ouch, we have a moisture problem!")
-        }
-        let rtio=(currentValue/lastCurrentValue)
+    let ratio="+0%"
+
+
+    if (currentValue>upperBound || currentValue<lowerBound) {
+        currentState="Ouch, we have a moisture problem!"
+    }
+    else {
+        currentState="It's a nice day"
+    }
+   
+    const rtio=(currentValue/lastCurrentValue)
         if(rtio>1){
-            setRatio('+'+(((rtio-1)*100).toFixed(2)).toString()+'%')
+            ratio='+'+(((rtio-1)*100).toFixed(2)).toString()+'%'
         }
         else{
-            setRatio('-'+(((1-rtio)*100).toFixed(2)).toString()+'%')
+            ratio='-'+(((1-rtio)*100).toFixed(2)).toString()+'%'
         }
-    },[])
+    
+        
     return (
         <View style={[sensor.container,{flexDirection:'row',paddingLeft:5,paddingRight:5,justifyContent:'flex-start'}]}>
             <View style={[sensor.container,{width:'100%',borderWidth:0}]}>
@@ -46,7 +52,7 @@ const HumidityDetail = ({detail, onPress}) => {
                      
                         strokeCap='square'  
                         
-                        color={"#2E87FC"} 
+                        color={"#0ED4F7"} 
                         thickness={6} 
                         borderWidth={0}  
                         unfilledColor={"#F5E7E7"}
