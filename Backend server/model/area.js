@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const ObjectId = Schema.ObjectId;
 
 const Data = new mongoose.Schema({
     date: Date,
@@ -11,6 +10,8 @@ const Data = new mongoose.Schema({
 const BaseSensor = new mongoose.Schema({
   name: String,
   type: String,
+  groupKey: String,
+  devicekey: String,
 })
 
 
@@ -25,6 +26,7 @@ const RecordSensor = new mongoose.Schema({
 
 const ControlSensor = new Schema({
   ...BaseSensor.obj,
+  key: String,
   duration: Number,
   level: Number,
   mode: String,

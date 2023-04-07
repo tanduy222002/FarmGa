@@ -1,5 +1,6 @@
 require('dotenv').config()
 const connectDB = require('../connecDB')
+const axios = require('axios')
 const Area = require('../model/area')
 
 async function activateSchedule() {
@@ -50,25 +51,25 @@ function isOnTime(schedule) {
 async function activeDevice(device) {
     await setDeviceValue(device, device.level)
 
-    await waitForMiliSecond(device.duration)
+    await waitForMiliSecond(device.duration*1000)
 
-    return await setDeviceValue(device, device.level)
+    return await setDeviceValue(device, 0)
 }
 
 async function setDeviceValue(device, value) {
-    return await axios.post(`https://io.adafruit.com/api/v2/${process.env.USER_NAME}/groups/control-pump/feeds/${device.deviceKey}/data`, {
+    return axios.post(`https://io.adafruit.com/api/v2/${process.env.USER_NAME}/groups/${device.groupKey}/feeds/${device.deviceKey}/data`, {
         datum: {
             value: value
         }
     }, {
         headers: {
-            "X-AIO-Key": "aio_MCMy71JIH3aclwI3bQi6dzrhg6NS"
+            "X-AIO-Key": "aio_gbLe63lUfFVh6h5lNr6ls1JEOpwJ"
         }
     }, {
         params: {
-            "x-aio-key": "aio_MCMy71JIH3aclwI3bQi6dzrhg6NS"
+            "x-aio-key": "aio_gbLe63lUfFVh6h5lNr6ls1JEOpwJ"
         }
-    })
+    }).then(res => console.log(res.data))
 }
 
 function waitForMiliSecond(timeOut) {
@@ -84,6 +85,6 @@ function getCurrentDateTime() {
     return {currentDate, currentTime}
 }
 
-activateSchedule()
+//activateSchedule()
 
-module.exports = { activeDevice }
+module.exports = activeDevice

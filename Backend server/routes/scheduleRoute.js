@@ -3,6 +3,7 @@ const Area = require('../model/area')
 const router = express.Router()
 
 router.post('/create', async (req, res) => {
+    console.log(req.body);
     const areaName = req.body.areaName
     const scheduleDate = req.body.date
     const scheduleTime = req.body.time
@@ -38,15 +39,8 @@ router.post('/device', async (req, res) => {
 }) 
 
 
-/*
-    const temp = await Area.updateOne({name: "KV1"}, {
-        $push: {
-            availControlDevices: {
-                name: "Pump 2",
-                type: "Control_Pump"
-            }
-        }
-    }).exec()
-*/
+
+
+
 
 module.exports = router
