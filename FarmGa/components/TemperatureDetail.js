@@ -4,7 +4,7 @@ import React, { useState,useEffect } from 'react'
 import { default as Icon }  from 'react-native-vector-icons/FontAwesome'
 import * as Progress from 'react-native-progress';
 import { useNavigation } from '@react-navigation/native';
-const TemperatureDetail = ({detail}) => {
+const TemperatureDetail = ({detail,name}) => {
     let currentState = "It's a nice day"
     const lowerBound=parseFloat(detail.threshold.lowerBound);
     const upperBound=parseFloat(detail.threshold.upperBound);
@@ -14,7 +14,7 @@ const TemperatureDetail = ({detail}) => {
     const navigation=useNavigation();
 
     function gotoSensorDetaiPage(){
-        navigation.navigate("SensorDetail")
+        navigation.navigate("SensorDetail",{detail,name})
     }
     if (currentValue>upperBound) {
         currentState="I'm so hot"

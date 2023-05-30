@@ -15,18 +15,21 @@ const SensorView = ({navigation}) => {
   
   
   useEffect(() => {
-    axios.get(`http://10.230.209.145:3000/area/all`)
-         .then(res => setAreaList(res.data))
-         .catch(() => setError(true))
-         .finally(() => setLoading(false))
-},[flag])
+    setInterval(SyncArea, 5000);
+},[])
 
+  const SyncArea = async()=>{
+    console.log('syncArea' + new Date);
+    await axios.get(`http://192.168.1.150:3000/area/all`)
+    .then(res => {setAreaList(res.data)})
+    .catch(() => setError(true))
+    .finally(() => setLoading(false))
+  }
  
   
   
   
   return (
-    
     <ScrollView style={{backgroundColor:'#ebf2f6',}} >
       <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center',padding:10,width:'100%'}}>
           <Image style={{borderRadius:1000,width:100,height:100,}} source={require('../assets/durian.png')} />
@@ -61,6 +64,7 @@ const SensorView = ({navigation}) => {
         <Area name={area.name} key={index}>
           <TemperatureDetail 
             detail={area.record[0]}
+            name={area.name}
           />
           <HumidityDetail  
             detail={area.record[1]}

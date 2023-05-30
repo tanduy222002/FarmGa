@@ -7,12 +7,11 @@ const mongoose = require('mongoose');
 const cors = require('cors')
 const connectDB=require('./connectDB')
 const Area=require('./model/area');
-
 const areaRoute = require('./routes/areaRoute')
 const scheduleRoute = require('./routes/scheduleRoute')
 const controlRoute = require('./routes/controlRoute')
 const syncData =require('./controller/sync')
-
+const updateThresholdRoute = require('./routes/updateThresholdRoute')
 connectDB();
 
 syncData();
@@ -22,17 +21,19 @@ app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 
 
-
 app.use("/area", areaRoute)
 
 app.use("/schedule", scheduleRoute)
 
 app.use("/control", controlRoute)
 
-app.get('/areas', async (req, res) => {
-    let KV = await Area.find({}).exec()
-    res.send(KV)
-})
+app.use("/update", updateThresholdRoute)
+
+// app.get('/areas', async (req, res) => {
+//     let KV = await Area.find({}).exec()
+//     res.send(KV)
+// })
+
 
 app.listen(process.env.PORT, () => {
     console.log(`listening on port ${process.env.PORT}`)
