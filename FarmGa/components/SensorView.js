@@ -68,10 +68,12 @@ const SensorView = ({navigation}) => {
           />
           <HumidityDetail  
             detail={area.record[1]}
+            name={area.name}
             
           />
           <LightDetail 
             detail={area.record[2]} 
+            name={area.name}
             
           />
         </Area>
