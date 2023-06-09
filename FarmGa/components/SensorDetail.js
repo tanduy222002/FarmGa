@@ -11,7 +11,14 @@ const SensorDetail = ({navigation,route}) => {
   const [upperValue,setUpperValue] = useState(parseInt(upperBound));
 
   const updateThreshold = async()=>{
-      await axios.post('http://192.168.1.150:3000/update/threshold', 
+      if (upperValue<lowerValue){
+        Alert.alert('Update failed', 'The Upper threshold must greater than the Lower threshold', [
+          {text: 'OK'},
+        ]);
+        return;
+      }
+
+      await axios.post('http://192.168.1.4:3000/update/threshold', 
         {"type":route.params.detail.type,"name":route.params.name,"upperBound":upperValue,"lowerBound":lowerValue}
       )
       .then(function (response) {
@@ -30,10 +37,11 @@ const SensorDetail = ({navigation,route}) => {
   return (
     <ScrollView style={{}}>
     <View style={[device.container]}>
-        <Text>Tên: 55</Text>
-        <Text>Thang đo: -55 đến 150</Text>
-        <Text>Nhiệt độ vượt ngưỡng:</Text>
-        <Text>Ngưỡng dưới: {lowerValue}</Text>
+        <Text style={device.text}>Tên: {route.params.detail.name}</Text>
+        <Text style={device.text}>Thang đo: {route.params.detail.range}°C</Text>
+        <Text style={device.text}>Sai số đo: {route.params.detail.error}°C</Text>
+        <Text style={device.text}>Nhiệt độ vượt ngưỡng:</Text>
+        <Text style={device.text}>Ngưỡng dưới: {lowerValue}</Text>
         <View style={{flexDirection:'row',justifyContent:'flex-start',alignItems:'center'}}>
             <Slider
             name="threshold"
@@ -90,6 +98,11 @@ const device = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'flex-start',
     },
+    text:{
+      fontSize:16,
+      fontWeight:'normal',
+
+    }
 })
 
 
