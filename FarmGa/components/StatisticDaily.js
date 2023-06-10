@@ -4,13 +4,15 @@ import { Dimensions } from "react-native";
 
 const screenWidth = Dimensions.get("window").width - 48;
 
+
+
 const StatisticDaily = ({type, data}) => {
     return (
         <ScrollView style={{backgroundColor: '#fafafa'}}>
             <View style={{justifyContent: 'center', alignItems: 'center'}}>
                 <Text style={{fontSize: 24, fontWeight: '700', margin: 16}}>{data.date}</Text>
             </View>
-            {data.valueList.length==0&&<Text style={{fontSize: 16, alignSelf:'center'}}>Không có dữ liệu ở đây</Text>}
+            {data.valueList.length==0&&<Text style={{fontSize: 16, alignSelf:'center'}}>No data</Text>}
             {data.valueList.map((item, index) => {
                 return (
                     <View
@@ -27,8 +29,14 @@ const StatisticDaily = ({type, data}) => {
 
                                 <View style={styles.rowSpacer} />
 
-                                <View style={styles.valueWrapper}>
-                                    <Text style={{color: '#fff'}}>{item.value}°C</Text>
+                                <View style={[styles.valueWrapper, type==0&&{backgroundColor: '#f13b3b'}
+                                                                 , type==1&&{backgroundColor: '#00d4ff'}
+                                                                 , type==2&&{backgroundColor: '#f2e975'}]}>
+                                    <Text style={[type==0&&{color: '#fff'}
+                                                , type==1&&{color: '#fff'}
+                                                , type==2&&{color: '#3c1a5b'}]}>
+                                    {item.value} {type==0&&'°C'}{type==1&&'%'}{type==2&&'Lux'}
+                                    </Text>
                                 </View>
                             </View>
                         </View>

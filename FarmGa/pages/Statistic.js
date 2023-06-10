@@ -39,9 +39,9 @@ const StatisticDailyScreen = ({navigation, route}) => {
 const Statistic = () => {
   return (
       <StatisticStack.Navigator>
-        <StatisticStack.Screen name="All Statistic"component={AllStatisticScreen} />
-        <StatisticStack.Screen name="Statistic Detail"component={StatisticDetailScreen} />
-        <StatisticStack.Screen name="Statistic Daily"component={StatisticDailyScreen} />
+        <StatisticStack.Screen name="All Statistic"component={AllStatisticScreen} options={{ title: 'Statistic' }}/>
+        <StatisticStack.Screen name="Statistic Detail"component={StatisticDetailScreen} options={({ route }) => ({ title: 'Chart'  })}/>
+        <StatisticStack.Screen name="Statistic Daily"component={StatisticDailyScreen} options={({ route }) => ({ title: 'Daily' })}/>
       </StatisticStack.Navigator>
   )
 }

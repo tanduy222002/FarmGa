@@ -10,26 +10,27 @@ const Chart = ({type, data}) => {
     let color = '#fff'
     let lineColor = (opacity = 1) => `rgba(255, 255, 255, ${opacity})`
     let labelColor = (opacity = 1) => `rgba(255, 255, 255, ${opacity})`
-    let legend = 'Nhiệt độ'
+    let legend = 'Temperature'
     if (type == 0) {
         color = '#f13b3b'
         labelColor = (opacity = 1) => `rgba(100, 0, 0, ${opacity})`
+        // lineColor = (opacity = 1) => `rgba(248, 172, 156, ${opacity})`
         lineColor = (opacity = 1) => `rgba(241, 59, 59, ${opacity})`
-        legend = 'Nhiệt độ'
+        legend = 'Temperature'
 
     }
     else if (type == 1) {
         color = '#00d4ff'
         labelColor = (opacity = 1) => `rgba(4,0,110, ${opacity})`
         lineColor = (opacity = 1) => `rgba(0, 212, 255, ${opacity})`
-        legend = 'Độ ẩm'
+        legend = 'Humidity'
 
     }
     else if (type == 2) {
         color = '#f2e975'
         labelColor = (opacity = 1) => `rgba(106,110,0, ${opacity})`
         lineColor = (opacity = 1) => `rgba(242, 233, 117, ${opacity})`
-        legend = 'Ánh sáng'
+        legend = 'Light'
     }
 
     const chartData = {
@@ -47,10 +48,10 @@ const Chart = ({type, data}) => {
     };
 
     const chartConfig = {
-        backgroundGradientFrom: "#CCC",
-        backgroundGradientFromOpacity: 0.4,
+        backgroundGradientFrom: "#fff",
+        backgroundGradientFromOpacity: 1,
         backgroundGradientTo: "#fff",
-        backgroundGradientToOpacity: 0.5,
+        backgroundGradientToOpacity: 1,
         // backgroundColor: "#FFF",
         fillShadowGradientFrom: color,
         fillShadowGradientFromOpacity: 0.8,

@@ -22,25 +22,49 @@ const areaTemp = [
             "type": "Temperature",
             "data": [
                 {
-                    "date": "2023-06-01T11:23:25.388Z",
+                    "date": "2023-06-04T11:23:25.388Z",
                     "value": "33.7",
                     "unit": "Celcius",
                     "_id": "64787fadf2b82ef3f376ae5d"
                 },
                 {
-                    "date": "2023-06-01T09:58:36.849Z",
+                    "date": "2023-06-04T09:58:36.849Z",
                     "value": "33.7",
                     "unit": "Celcius",
                     "_id": "64786bcc0ef2d43d0223975d"
                 },
                 {
-                    "date": "2023-06-01T09:58:26.785Z",
+                    "date": "2023-06-03T11:23:25.388Z",
                     "value": "33.7",
                     "unit": "Celcius",
-                    "_id": "64786bc20ef2d43d02239747"
+                    "_id": "64787fadf2b82ef3f376ae5d"
+                },
+                {
+                    "date": "2023-06-03T09:58:36.849Z",
+                    "value": "33.7",
+                    "unit": "Celcius",
+                    "_id": "64786bcc0ef2d43d0223975d"
+                },
+                {
+                    "date": "2023-06-02T11:23:25.388Z",
+                    "value": "33.7",
+                    "unit": "Celcius",
+                    "_id": "64787fadf2b82ef3f376ae5d"
+                },
+                {
+                    "date": "2023-06-02T09:58:36.849Z",
+                    "value": "33.7",
+                    "unit": "Celcius",
+                    "_id": "64786bcc0ef2d43d0223975d"
                 },
                 {
                     "date": "2023-06-01T09:58:16.838Z",
+                    "value": "33.7",
+                    "unit": "Celcius",
+                    "_id": "64786bb80ef2d43d02239731"
+                },
+                {
+                    "date": "2023-06-01T09:58:56.838Z",
                     "value": "33.7",
                     "unit": "Celcius",
                     "_id": "64786bb80ef2d43d02239731"
@@ -276,6 +300,13 @@ const days = [
     'Friday',
     'Saturday',
     'Sunday',
+    // 'Thứ hai',
+    // 'Thứ ba',
+    // 'Thứ tư',
+    // 'Thứ năm',
+    // 'Thứ sáu',
+    // 'Thứ bảy',
+    // 'Chủ nhật',
 ]
 
 function formatDate(date){
@@ -332,7 +363,7 @@ function getLastWeekData(data) {
 
 function getLastWeekAvg(lastWeekData) {
     return lastWeekData.map(item => (item.valueList.map(item => parseFloat(item.value))
-                                                  .reduce((x,y) => x+y, 0) / (valueList.length!=0?valueList.length:1)).toFixed(1))
+                                                  .reduce((x,y) => x+y, 0) / (item.valueList.length!=0?item.valueList.length:1)).toFixed(1))
 
 }
 
@@ -342,12 +373,12 @@ const StatisticDetail = ({type, navigateToDaily}) => {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        axios.get(`http://10.230.209.145:3000/area/all`)
-             .then((res) => {console.log('success') ;setAreaList(res.data)})
-             .catch(() => {console.log("fail");setError(true)})
+        axios.get(`http://192.168.1.4:3000/area/all`)
+             .then((res) => {console.log('Get Area List') ;setAreaList(res.data)})
+             .catch((error) => {console.log(error);setError(true)})
              .finally(() => {console.log('end') ;setLoading(false)})
     },[])
-    const lastWeekData = getLastWeekData(areaList[0].record[type].data)
+    const lastWeekData = areaList!=undefined?getLastWeekData(areaList[0].record[type].data):getLastWeekData(areaTemp[0].record[type].data)
     // const lastWeekData = getLastWeekData(areaTemp[0].record[type].data)
     const lastWeekAvg = getLastWeekAvg(lastWeekData)
     // console.log(lastWeekData)
@@ -358,7 +389,7 @@ const StatisticDetail = ({type, navigateToDaily}) => {
 
             <View>
                 <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                    <Text style={{fontSize: 24, fontWeight: '700', margin: 16}}>Tuần trước</Text>
+                    <Text style={{fontSize: 24, fontWeight: '700', margin: 16}}>Last week</Text>
                 </View>
                 {lastWeekData.map(({}, index) => {
                     return (
@@ -377,8 +408,14 @@ const StatisticDetail = ({type, navigateToDaily}) => {
 
                             <View style={styles.rowSpacer} />
 
-                            <View style={styles.valueWrapper}>
-                                <Text style={{color: '#fff'}}>{lastWeekAvg[index]}°C</Text>
+                            <View style={[styles.valueWrapper, type==0&&{backgroundColor: '#f13b3b'}
+                                                             , type==1&&{backgroundColor: '#00d4ff'}
+                                                             , type==2&&{backgroundColor: '#f2e975'}]}>
+                                <Text style={[type==0&&{color: '#fff'}
+                                            , type==1&&{color: '#fff'}
+                                            , type==2&&{color: '#3c1a5b'}]}>
+                                {lastWeekAvg[index]} {type==0&&'°C'}{type==1&&'%'}{type==2&&'Lux'}
+                                </Text>
                             </View>
                             {
                                 <FeatherIcon
@@ -459,7 +496,9 @@ const styles = StyleSheet.create({
     },
     valueWrapper: {
         padding: 8,
-        backgroundColor: 'red',
+        justifyContent: 'center',
+        alignItems: 'center',
+        // backgroundColor: 'red',
         borderRadius: 16,
     }
 })
