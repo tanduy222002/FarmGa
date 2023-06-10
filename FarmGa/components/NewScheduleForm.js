@@ -1,11 +1,12 @@
 import { useState } from 'react'
-import { Text, View, StyleSheet, Platform } from 'react-native'
+import { Text, View, StyleSheet, Platform, Alert } from 'react-native'
 import { Picker } from '@react-native-picker/picker'
 import { useFetch } from '../hooks/useFetch'
 import Button from '../components/Button'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { createNewSchedule } from '../service/schedule'
 import { getScheduleTime, getScheduleDate } from '../utils/formatDateTime'
+import { useRoute, useNavigation } from "@react-navigation/native"
 
 
 const NewScheduleForm = () => {
@@ -13,8 +14,13 @@ const NewScheduleForm = () => {
     const [date, setDate] = useState(new Date())
     const {data : areaList, loading} = useFetch('area/name')
 
-    function selectDate(event, data) {
+    const route = useRoute()
+    const refreshPageFn = route.params.refreshPage
+    const navigation = useNavigation()
+
+    function selectDate(event, date) {
         const { type, nativeEvent: {timestamp}} = event
+        setDate(date)
     }
     
     function createSchedule() {
@@ -22,7 +28,13 @@ const NewScheduleForm = () => {
             areaName: areaList[selectedIndex].name,
             date: getScheduleDate(date),
             time: getScheduleTime(date),
-        }).then(res => console.log(res))
+        }).then(res => {
+            Alert.alert('Successful', 'New schedule has been created!', [
+                {text: 'OK'},
+            ]);
+            refreshPageFn()
+            navigation.navigate("Control Device List")
+        })
     }
 
     return (

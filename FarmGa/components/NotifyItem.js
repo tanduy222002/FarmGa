@@ -28,7 +28,7 @@ const NotifyItem = ({_id, time, message, onDelete}) => {
 
 const rightSwipeAction = (onDelete, id) => {
     return (
-        <TouchableOpacity style={item.right.containter} onPress={() => onDelete(id)}>
+        <TouchableOpacity style={item.right} onPress={() => onDelete(id)}>
             <FontAwesomeIcon name="trash-o" size={35} color="#dc2626"/>
         </TouchableOpacity>
     )
@@ -59,10 +59,8 @@ const item = StyleSheet.create({
         color: "#cbd5e1"
     },
     right: {
-        containter: {
-            alignItems: "center",
-            justifyContent: "center",
-        }
+        alignItems: "center",
+        justifyContent: "center",
     }
 })
 

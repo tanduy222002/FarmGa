@@ -1,4 +1,5 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { useState } from 'react'
+import { View, SafeAreaView, Text, StyleSheet, ScrollView } from 'react-native'
 import Area from '../components/Area'
 import DeviceInfo from '../components/DeviceInfo'
 import Button from '../components/Button'
@@ -7,17 +8,26 @@ import { default as AntDesignIcon } from 'react-native-vector-icons/AntDesign'
  
 
 const ControlDeviceList = ({navigation}) => {
-  const { data : areaList , loading } = useFetch('area/all')
-  console.log(areaList);
+  const [refresh, setRefresh] = useState(true)
+  const { data : areaList , loading } = useFetch('area/all', [refresh])
+
+  function refreshPage() {
+    setRefresh(prev => !prev)
+  }
+
   function goToEditDevicePage(areaId, scheduleId, device) {
     navigation.navigate("Edit Control Device", {
       areaId: areaId,
       scheduleId: scheduleId,
-      device: device
+      device: device,
+      refreshPage: refreshPage
     })
   }
+
   function goToAddSchedule() {
-    navigation.navigate("Create Schedule")
+    navigation.navigate("Create Schedule", {
+      refreshPage: refreshPage
+    })
   }
 
   let ScheduleList = []
@@ -47,7 +57,7 @@ const ControlDeviceList = ({navigation}) => {
   })
 
   return (
-    <View style={{backgroundColor:'#ebf2f6'}}>
+    <SafeAreaView style={{backgroundColor:'#ebf2f6'}}>
       <View style={devicelist.btnWrapper}>
         <Button 
           icon={<AntDesignIcon name="plus" size={30} color="#fff"/>}
@@ -59,11 +69,11 @@ const ControlDeviceList = ({navigation}) => {
         </Button>
       </View>
       {!loading ? 
-      <View>
+      <ScrollView>
         {ScheduleList}
-      </View>
+      </ScrollView>
       : <Text>loading...</Text>}
-    </View>
+    </SafeAreaView>
   )
 }
 

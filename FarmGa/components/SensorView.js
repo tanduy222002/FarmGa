@@ -5,6 +5,7 @@ import TemperatureDetail from './TemperatureDetail'
 import HumidityDetail from './HumidityDetail'
 import LightDetail from './LightDetail'
 import axios from "axios"
+import { REACT_APP_LOCALHOST } from '../constance'
 import { default as AntDesignIcon }  from 'react-native-vector-icons/AntDesign'
 import { getScheduleDate,getScheduleTime } from '../utils/formatDateTime'
 const SensorView = ({navigation}) => {
@@ -15,7 +16,7 @@ const SensorView = ({navigation}) => {
   
   
   useEffect(() => {
-    axios.get(`http://10.230.209.145:3000/area/all`)
+    axios.get(`${REACT_APP_LOCALHOST}/area/all`)
          .then(res => setAreaList(res.data))
          .catch(() => setError(true))
          .finally(() => setLoading(false))

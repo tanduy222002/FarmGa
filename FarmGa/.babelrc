@@ -1,0 +1,13 @@
+{
+    "presets": ["babel-preset-expo"],
+    "plugins": [
+        [
+        "module:react-native-dotenv",
+        {
+            "envName": "REACT_APP_LOCALHOST",
+            "moduleName": "@env",
+            "path": ".env"
+        }
+        ]
+    ]
+}

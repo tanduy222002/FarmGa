@@ -4,15 +4,15 @@ import { getScheduleDate, getScheduleTime } from '../utils/formatDateTime'
 import { default as AntDesignIcon } from 'react-native-vector-icons/AntDesign'
 import axios from 'axios'
 import NotifyItem from '../components/NotifyItem'
+import { REACT_APP_LOCALHOST } from "../constance"
 
 
-const baseURL = "http://172.20.15.88:3000"
 
 const Notification = () => {
   const [refresh, setRefresh] = useState(true)
   const [notifications, setNotifications] = useState([])
   async function deleteNotification(id) {
-    await axios.delete(`${baseURL}/notification/${id}`)
+    await axios.delete(`${REACT_APP_LOCALHOST}/notification/${id}`)
     .then(() => {
       console.log("Delete notification")
       setRefresh(prev => !prev)
@@ -21,7 +21,7 @@ const Notification = () => {
 
   useEffect(() => {
     axios
-      .get(`${baseURL}/notification`)
+      .get(`${REACT_APP_LOCALHOST}/notification`)
       .then(res => {
         setNotifications(res.data)
       })

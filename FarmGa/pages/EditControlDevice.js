@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { useRoute } from '@react-navigation/native';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { useRoute, useNavigation } from "@react-navigation/native"
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import Button from '../components/Button'
 import { default as FontistoIcon } from 'react-native-vector-icons/Fontisto';
 import { updateScheduleDevice } from '../service/schedule'
@@ -35,7 +35,9 @@ const EditControlDevice = () => {
   const areaId = route.params.areaId
   const scheduleId = route.params.scheduleId
   const {name, _id: deviceId, duration : initDuration, mode : initMode, level : initLevel} = route.params.device
-
+  const refreshPageFn = route.params.refreshPage
+  
+  const navigation = useNavigation()
 
   const [duration, setDuration] = useState(initDuration)
   const [mode, setMode] = useState(initMode)
@@ -60,6 +62,11 @@ const EditControlDevice = () => {
         setDuration(newDuration)
         setLevel(newLevel)
         setMode(newMode)
+        Alert.alert('Successful', 'Device configuration has been saved!', [
+          {text: 'OK'},
+        ]);      
+        refreshPageFn()
+        navigation.navigate("Control Device List")
       })
     }
   }
