@@ -8,6 +8,7 @@ import { default as AntDesignIcon } from 'react-native-vector-icons/AntDesign'
 
 const ControlDeviceList = ({navigation}) => {
   const { data : areaList , loading } = useFetch('area/all')
+  console.log(areaList);
   function goToEditDevicePage(areaId, scheduleId, device) {
     navigation.navigate("Edit Control Device", {
       areaId: areaId,

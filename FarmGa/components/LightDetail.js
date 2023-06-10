@@ -1,9 +1,13 @@
-import { View, Text, StyleSheet,Pressable } from 'react-native'
+import { View, Text, StyleSheet,Pressable, TouchableOpacity } from 'react-native'
 import React, {useState,useEffect} from 'react'
 import { default as MaterialCommunityIcon } from 'react-native-vector-icons/MaterialCommunityIcons'
 import * as Progress from 'react-native-progress';
-import { default as Icon }  from 'react-native-vector-icons/AntDesign'
-const LightDetail = ({detail}) => {
+import { useNavigation } from '@react-navigation/native';
+const LightDetail = ({detail,name}) => {
+    const navigation=useNavigation();
+    function gotoSensorDetaiPage(){
+        navigation.navigate("SensorDetail",{detail,name})
+    }
     let currentState="I'm good";
     const lowerBound=detail.threshold.lowerBound;
     const upperBound=detail.threshold.upperBound;
@@ -18,14 +22,14 @@ const LightDetail = ({detail}) => {
     }
     else  currentState="I'm good"
     let rtio=(currentValue/lastCurrentValue)
-    if(rtio>1){
+    if(rtio>=1){
         ratio='+'+(((rtio-1)*100).toFixed(2)).toString()+'%'
     }
     else{
         ratio='-'+(((1-rtio)*100).toFixed(2)).toString()+'%'
     }
     return (
-        <View style={[sensor.container,{flexDirection:'row',paddingLeft:5,paddingRight:5,justifyContent:'flex-start'}]}>
+        <TouchableOpacity onPress={gotoSensorDetaiPage} style={[sensor.container,{flexDirection:'row',paddingLeft:5,paddingRight:5,justifyContent:'flex-start'}]}>
             <View style={[sensor.container,{width:'100%',borderWidth:0}]}>
                 <View style={[sensor.container,{flexDirection:'row',borderWidth:0,paddingLeft: 5,paddingRight: 5,justifyContent:'flex-start'}]}>
                     <Text style={[sensor.text,sensor.color.lightGrey]}>LIGHT</Text>
@@ -35,7 +39,7 @@ const LightDetail = ({detail}) => {
                     <View style={[sensor.container,{flex:1,borderWidth:0}]}>
                         <View style={[sensor.container,{flexDirection:'row',borderWidth:0,paddingLeft: 0,paddingRight: 5,justifyContent:'flex-start'}]}>
                             <MaterialCommunityIcon name='lightning-bolt-outline' size={35} color="#FEBC62" /> 
-                            <Text style={[sensor.text,sensor.color.darkBlue,{fontSize:25,marginLeft:5,marginRight:'auto'}]}>{currentValue}%  </Text>
+                            <Text style={[sensor.text,sensor.color.darkBlue,{fontSize:25,marginLeft:5,marginRight:'auto'}]}>{currentValue} lux </Text>
                         </View>
                         <View style={[sensor.container,{flexDirection:'row',borderWidth:0,justifyContent:'flex-start',paddingLeft:5,paddingRight:5,}]}>
                             <Text style={[sensor.text,{fontSize:20},(currentState=="I'm good")?sensor.color.green:sensor.color.red]}>{currentState}</Text>
@@ -59,7 +63,7 @@ const LightDetail = ({detail}) => {
                 </View>
             </View>
          
-        </View>    
+        </TouchableOpacity>    
       )
     }
     

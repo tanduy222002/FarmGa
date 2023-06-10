@@ -25,7 +25,7 @@ const cloudSync = async()=>{
     currenTime = new Date();
     updateObject(area,0,temp_value,"Celcius",currenTime);
     updateObject(area,1,humidity_value,"%",currenTime);
-    updateObject(area,2,light_value,"%",currenTime);
+    updateObject(area,2,light_value,"lux",currenTime);
     await area.save();
     console.log('sync with mongo')
 }

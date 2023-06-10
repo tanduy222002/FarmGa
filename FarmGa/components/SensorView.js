@@ -15,7 +15,7 @@ const SensorView = ({navigation}) => {
   
   
   useEffect(() => {
-    axios.get(`http://10.230.148.181:3000/area/all`)
+    axios.get(`http://10.230.209.145:3000/area/all`)
          .then(res => setAreaList(res.data))
          .catch(() => setError(true))
          .finally(() => setLoading(false))

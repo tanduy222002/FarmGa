@@ -82,8 +82,7 @@ function readyToStart(schedule) {
 async function activeDevice(device) {
     await setDeviceValue(device, device.level)
 
-    await waitForMiliSecond(device.duration*1000)
-
+    await waitForMiliSecond(device.duration*5000)
     return await setDeviceValue(device, 0)
 }
 
@@ -94,11 +93,11 @@ async function setDeviceValue(device, value) {
         }
     }, {
         headers: {
-            "X-AIO-Key": "aio_gbLe63lUfFVh6h5lNr6ls1JEOpwJ"
+            "X-AIO-Key": "aio_gbho10FbE9uEYBJSlFZyyoUXrzcR"
         }
     }, {
         params: {
-            "x-aio-key": "aio_gbLe63lUfFVh6h5lNr6ls1JEOpwJ"
+            "x-aio-key": "aio_gbho10FbE9uEYBJSlFZyyoUXrzcR"
         }
     }).then(res => console.log(res.data))
 }

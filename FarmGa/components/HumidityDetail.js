@@ -1,18 +1,21 @@
-import { View, Text, StyleSheet,Pressable } from 'react-native'
+import { View, Text, StyleSheet,Pressable, TouchableOpacity } from 'react-native'
 import React, { useState ,useEffect} from 'react'
 import { default as MaterialCommunityIcon } from 'react-native-vector-icons/MaterialCommunityIcons'
 import * as Progress from 'react-native-progress';
 import { default as Icon }  from 'react-native-vector-icons/Ionicons'
+import { useNavigation } from '@react-navigation/native';
 
-
-const HumidityDetail = ({detail}) => {
+const HumidityDetail = ({detail,name}) => {
     let currentState="It's a nice day";
     const lowerBound=detail.threshold.lowerBound;
     const upperBound=detail.threshold.upperBound;
     const currentValue= parseFloat(detail.data[0].value);
     const lastCurrentValue= parseFloat(detail.data[1].value);
     let ratio="+0%"
-
+    const navigation=useNavigation();
+    function gotoSensorDetaiPage(){
+        navigation.navigate("SensorDetail",{detail,name})
+    }
 
     if (currentValue>upperBound || currentValue<lowerBound) {
         currentState="Ouch, we have a moisture problem!"
@@ -22,7 +25,7 @@ const HumidityDetail = ({detail}) => {
     }
    
     const rtio=(currentValue/lastCurrentValue)
-        if(rtio>1){
+        if(rtio>=1){
             ratio='+'+(((rtio-1)*100).toFixed(2)).toString()+'%'
         }
         else{
@@ -31,7 +34,7 @@ const HumidityDetail = ({detail}) => {
     
         
     return (
-        <View style={[sensor.container,{flexDirection:'row',paddingLeft:5,paddingRight:5,justifyContent:'flex-start'}]}>
+        <TouchableOpacity onPress={gotoSensorDetaiPage} style={[sensor.container,{flexDirection:'row',paddingLeft:5,paddingRight:5,justifyContent:'flex-start'}]}>
             <View style={[sensor.container,{width:'100%',borderWidth:0}]}>
                 <View style={[sensor.container,{flexDirection:'row',borderWidth:0,paddingLeft: 5,paddingRight: 5,justifyContent:'flex-start'}]}>
                     <Text style={[sensor.text,sensor.color.lightGrey]}>HUMIDITY</Text>
@@ -65,7 +68,7 @@ const HumidityDetail = ({detail}) => {
                 </View>
             </View>
          
-        </View>    
+        </TouchableOpacity>    
       )
     }
     
