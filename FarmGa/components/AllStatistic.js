@@ -19,9 +19,9 @@ const StatisticArea = ({navigateToDetail, type}) => {
             type==1&&{backgroundColor: 'rgba(0, 212, 255, 1)'},
             type==2&&{backgroundColor: 'rgba(242, 233, 117, 1)'}]}>
             <View style={{marginHorizontal: 24}}>
-                {type==0&&<Text style={[styles.title, {color: '#fff',}]}>Nhiệt độ</Text>}
-                {type==1&&<Text style={[styles.title, {color: '#1f1f1f',}]}>Độ ẩm</Text>}
-                {type==2&&<Text style={[styles.title, {color: '#1f1f1f',}]}>Ánh sáng</Text>}
+                {type==0&&<Text style={[styles.title, {color: '#fff',}]}>Temperature</Text>}
+                {type==1&&<Text style={[styles.title, {color: '#1f1f1f',}]}>Humidity</Text>}
+                {type==2&&<Text style={[styles.title, {color: '#3c1a5b',}]}>Light</Text>}
                 {/* <Text style={{color: '#000',}}>3</Text> */}
             </View>
             <View style={{marginHorizontal: 24, borderRadius: 16, padding: 12, backgroundColor: '#fff', alignItems:'center', justifyContent: 'center'}}>

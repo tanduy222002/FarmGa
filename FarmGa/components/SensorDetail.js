@@ -37,11 +37,11 @@ const SensorDetail = ({navigation,route}) => {
   return (
     <ScrollView style={{}}>
     <View style={[device.container]}>
-        <Text style={device.text}>Tên: {route.params.detail.name}</Text>
-        <Text style={device.text}>Thang đo: {route.params.detail.range}°C</Text>
-        <Text style={device.text}>Sai số đo: {route.params.detail.error}°C</Text>
-        <Text style={device.text}>Nhiệt độ vượt ngưỡng:</Text>
-        <Text style={device.text}>Ngưỡng dưới: {lowerValue}</Text>
+        <Text style={device.text}>Name: {route.params.detail.name}</Text>
+        <Text style={device.text}>Range: {route.params.detail.range}°C</Text>
+        <Text style={device.text}>Error: {route.params.detail.error}°C</Text>
+        <Text style={device.text}>Threshold:</Text>
+        <Text style={device.text}>Lower threshold: {lowerValue}</Text>
         <View style={{flexDirection:'row',justifyContent:'flex-start',alignItems:'center'}}>
             <Slider
             name="threshold"
@@ -57,7 +57,7 @@ const SensorDetail = ({navigation,route}) => {
             <Text style={{borderWidth:2,padding:3,borderColor:'#01E47B',fontSize:16,fontWeight:'bold',justifyContent:'center',alignItems:'center'}}>{lowerValue}</Text>
        </View>
        
-      <Text>Ngưỡng trên: {upperValue}</Text>
+      <Text>Upper threshold {upperValue}</Text>
       <View style={{flexDirection:'row',justifyContent:'flex-start',alignItems:'center'}}>
           <Slider
             name="threshold"
