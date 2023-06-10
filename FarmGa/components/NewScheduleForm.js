@@ -16,6 +16,7 @@ const NewScheduleForm = () => {
     function selectDate(event, data) {
         const { type, nativeEvent: {timestamp}} = event
     }
+    
     function createSchedule() {
         return createNewSchedule({
             areaName: areaList[selectedIndex].name,

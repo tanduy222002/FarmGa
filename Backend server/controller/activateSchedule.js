@@ -1,12 +1,11 @@
 require('dotenv').config()
-const connectDB = require('../connecDB')
+const connectDB = require('../connectDB')
 const axios = require('axios')
 const Area = require('../model/area')
+const Notification = require('../model/notification')
 
-async function activateSchedule() {
-    await connectDB()
-    
-    while(true) {
+function activateSchedule() {    
+    setInterval(async () => {
         // get all schedule
         const areaScheduleList = await getAllSchedule()
         areaScheduleList.forEach(schedule => {
@@ -15,12 +14,23 @@ async function activateSchedule() {
                 // set all device state
                 // update schedule state    
             }
+            if(readyToStart(schedule)) { // schedule is coming in 5 minutes
+                let [hour, minute] = schedule.time.split(':')
+                hour = parseInt(minute) - 5 >= 0 ? hour : (parseInt(hour)-1).toString()
+                minute = parseInt(minute) - 5 ? (parseInt(minute) - 5).toString() : (60 - (5-parseInt(minute))).toString()
+
+                createNotification(
+                    schedule.date,
+                    `${hour}:${minute}`,
+                    `You have a irrigation schedule at ${schedule.time}, ${schedule.date}`
+                )
+            }
+
         })
 
-        await waitForMiliSecond(10000)
-        console.log("iteration end")
-    }
-}
+    }, 10000)
+
+} 
 
 async function getAllSchedule() {
     const scheduleList = await Area.find({}).select('schedule').exec()
@@ -34,18 +44,39 @@ async function activateAllScheduleDevice(controlDeviceList) {
 
 }
 
+async function createNotification(date, time, message) {
+    await Notification.create({
+        date: date,
+        time: time,
+        message: message
+    })
+}
+
 function isOnTime(schedule) {
-    console.log(getCurrentDateTime)
     const {currentDate, currentTime} = getCurrentDateTime()
     // time is represented by hour:minute format
     const [scheduleHour, scheduleMinute] = schedule.time.split(":")
     const [currentHour, currentMinute] = currentTime.split(":")
-    if(
+    return (
         schedule.date == currentDate 
         && scheduleHour == currentHour 
         && Math.abs(parseInt(scheduleMinute) - parseInt(currentMinute) <= 10)
-    ) return true
-    return false
+    ) 
+} 
+
+function readyToStart(schedule) {
+    /*
+    const {currentDate, currentTime} = getCurrentDateTime()
+    // time is represented by hour:minute format
+    const [scheduleHour, scheduleMinute] = schedule.time.split(":")
+    const [currentHour, currentMinute] = currentTime.split(":")
+    return (
+        schedule.date == currentDate 
+        && scheduleHour == currentHour 
+        && parseInt(scheduleMinute) - parseInt(currentMinute) == 5
+    ) 
+    */
+    return true
 } 
 
 async function activeDevice(device) {
@@ -85,6 +116,5 @@ function getCurrentDateTime() {
     return {currentDate, currentTime}
 }
 
-//activateSchedule()
 
-module.exports = activeDevice
+module.exports = activateSchedule

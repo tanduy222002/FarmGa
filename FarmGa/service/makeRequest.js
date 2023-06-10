@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const API = axios.create({
-    baseURL: "http://172.20.3.11:3000"
+    baseURL: "http://10.230.148.181:3000"
 })
 
 export function makeRequest(url, options) {

@@ -11,11 +11,14 @@ const Area=require('./model/area');
 const areaRoute = require('./routes/areaRoute')
 const scheduleRoute = require('./routes/scheduleRoute')
 const controlRoute = require('./routes/controlRoute')
+const notificationRoute = require('./routes/notificationRoute')
 const syncData =require('./controller/sync')
+const activateSchedule = require('./controller/activateSchedule')
 
 connectDB();
 
-syncData();
+//syncData();
+activateSchedule()
 
 app.use(cors())
 app.use(express.json())
@@ -28,6 +31,8 @@ app.use("/area", areaRoute)
 app.use("/schedule", scheduleRoute)
 
 app.use("/control", controlRoute)
+
+app.use("/notification", notificationRoute)
 
 app.get('/areas', async (req, res) => {
     let KV = await Area.find({}).exec()
