@@ -15,18 +15,18 @@ const SensorView = ({navigation}) => {
   
   
   useEffect(() => {
-    setInterval(SyncArea, 5000);
+    setInterval(SyncArea, 3000);
 },[])
 
   const SyncArea = async()=>{
     console.log('syncArea' + new Date);
-    await axios.get(`http://192.168.1.150:3000/area/all`)
+    await axios.get(`http://192.168.1.4:3000/area/all`)
     .then(res => {setAreaList(res.data)})
     .catch(() => setError(true))
     .finally(() => setLoading(false))
   }
- 
-  
+
+
   
   
   return (

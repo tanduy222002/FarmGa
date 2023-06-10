@@ -52,7 +52,6 @@ async function activeDevice(device) {
     await setDeviceValue(device, device.level)
 
     await waitForMiliSecond(device.duration*5000)
-
     return await setDeviceValue(device, 0)
 }
 
