@@ -18,7 +18,7 @@ const activateSchedule = require('./controller/activateSchedule')
 connectDB();
 
 //syncData();
-activateSchedule()
+activateSchedule
 
 app.use(cors())
 app.use(express.json())
