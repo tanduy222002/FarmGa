@@ -6,14 +6,25 @@ const Notification = require('../model/notification')
 
 function activateSchedule() {    
     setInterval(async () => {
+        console.log("schedule activate function")
         // get all schedule
         const areaScheduleList = await getAllSchedule()
         areaScheduleList.forEach(schedule => {
             if(isOnTime(schedule)) {      // check each schedule time
                 activateAllScheduleDevice(schedule.control)
                 // set all device state
-                // update schedule state    
             }
+        })
+
+    }, 60*1000)
+} 
+
+function createScheduleNotification() {
+    setInterval(async () => {
+        console.log("create schedule notification")
+        // get all schedule
+        const areaScheduleList = await getAllSchedule()
+        areaScheduleList.forEach(schedule => {
             if(readyToStart(schedule)) { // schedule is coming in 5 minutes
                 let [hour, minute] = schedule.time.split(':')
                 hour = parseInt(minute) - 5 >= 0 ? hour : (parseInt(hour)-1).toString()
@@ -27,10 +38,8 @@ function activateSchedule() {
             }
 
         })
-
-    }, 10000)
-
-} 
+    }, 60*1000)
+}
 
 async function getAllSchedule() {
     const scheduleList = await Area.find({}).select('schedule').exec()
@@ -38,9 +47,9 @@ async function getAllSchedule() {
 }
 
 async function activateAllScheduleDevice(controlDeviceList) {
-    const deviceActivationPromiseList = controlDeviceList.filter(device => device.duration > 0).map(device => activeDevice(device))
+    const deviceActivationPromiseList = controlDeviceList.filter(device => device.duration > 0).map(device => activateDevice(device))
 
-    Promise.all(deviceActivationPromiseList).then(res => console.log(res))
+    Promise.all(deviceActivationPromiseList).then(res => console.log("promise list: ", res))
 
 }
 
@@ -57,15 +66,16 @@ function isOnTime(schedule) {
     // time is represented by hour:minute format
     const [scheduleHour, scheduleMinute] = schedule.time.split(":")
     const [currentHour, currentMinute] = currentTime.split(":")
+
     return (
         schedule.date == currentDate 
         && scheduleHour == currentHour 
-        && Math.abs(parseInt(scheduleMinute) - parseInt(currentMinute) <= 10)
+        && Math.abs(parseInt(scheduleMinute) - parseInt(currentMinute)) <= 2
     ) 
 } 
 
 function readyToStart(schedule) {
-    /*
+
     const {currentDate, currentTime} = getCurrentDateTime()
     // time is represented by hour:minute format
     const [scheduleHour, scheduleMinute] = schedule.time.split(":")
@@ -75,11 +85,9 @@ function readyToStart(schedule) {
         && scheduleHour == currentHour 
         && parseInt(scheduleMinute) - parseInt(currentMinute) == 5
     ) 
-    */
-    return true
 } 
 
-async function activeDevice(device) {
+async function activateDevice(device) {
     await setDeviceValue(device, device.level)
 
     await waitForMiliSecond(device.duration*5000)
@@ -87,17 +95,17 @@ async function activeDevice(device) {
 }
 
 async function setDeviceValue(device, value) {
-    return axios.post(`https://io.adafruit.com/api/v2/${process.env.USER_NAME}/groups/${device.groupKey}/feeds/${device.deviceKey}/data`, {
+    return axios.post(`https://io.adafruit.com/api/v2/${process.env.USER_NAME}/groups/${process.env.GROUP}/feeds/${process.env.PUMP_KEY}/data`, {
         datum: {
             value: value
         }
     }, {
         headers: {
-            "X-AIO-Key": "aio_gbho10FbE9uEYBJSlFZyyoUXrzcR"
+            "X-AIO-Key": process.env.ADA_KEY
         }
     }, {
         params: {
-            "x-aio-key": "aio_gbho10FbE9uEYBJSlFZyyoUXrzcR"
+            "x-aio-key": process.env.ADA_KEY
         }
     }).then(res => console.log(res.data))
 }
@@ -116,4 +124,8 @@ function getCurrentDateTime() {
 }
 
 
-module.exports = activateSchedule
+module.exports = {
+    activateDevice: activateDevice,
+    activateSchedule: activateSchedule,
+    createScheduleNotification: createScheduleNotification
+}

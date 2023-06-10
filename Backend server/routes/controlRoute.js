@@ -1,7 +1,7 @@
 const express = require('express')
 const axios = require('axios')
 const Area = require('../model/area')
-const activateDevice = require('../controller/activateSchedule')
+const { activateDevice } = require('../controller/activateSchedule')
 
 const router = express.Router()
 
