@@ -20,29 +20,30 @@ export default function App() {
     
     <NavigationContainer >
         <Tab.Navigator
-       
-        barStyle={{ paddingBottom: 48}}
-            screenOptions={({ route }) => ({
+            screenOptions={
+              ({ route }) => ({
             tabBarIcon: () => {
         
               if (route.name === 'Home') {
-                return  <FeatherIcon name='sun' size={20}/>;
+                return  <FeatherIcon name='sun' size={25}/>;
               } 
               if (route.name === 'Schedule') {
-                return <MaterialIcon name='schedule' size={20}/>
+                return <MaterialIcon name='schedule' size={25}/>
               }
               if (route.name === 'Statistic') {
-                return <AntDesignIcon name='barschart' size={20}/>
+                return <AntDesignIcon name='barschart' size={25}/>
               }
               if (route.name === 'Notification') {
-                return <FeatherIcon name='bell' size={20}/>
+                return <FeatherIcon name='bell' size={25}/>
               } 
               if (route.name === 'Account') {
-                return  <MaterialCommunityIcon name='account-details' size={20}/>
+                return  <MaterialCommunityIcon name='account-details' size={25}/>
               } 
             },
             tabBarActiveTintColor: 'blue',
             tabBarInactiveTintColor: 'grey',
+            tabBarStyle:  { height: "7%" },
+          
           })}
         >
             <Tab.Screen name="Home" component={Home}  options={{

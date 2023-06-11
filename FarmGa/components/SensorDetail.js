@@ -58,7 +58,7 @@ const SensorDetail = ({navigation,route}) => {
             <Text style={{borderWidth:2,padding:3,borderColor:'#01E47B',fontSize:16,fontWeight:'bold',justifyContent:'center',alignItems:'center'}}>{lowerValue}</Text>
        </View>
        
-      <Text>Upper threshold {upperValue}</Text>
+      <Text style={device.text}>Upper threshold {upperValue}</Text>
       <View style={{flexDirection:'row',justifyContent:'flex-start',alignItems:'center'}}>
           <Slider
             name="threshold"
@@ -75,7 +75,7 @@ const SensorDetail = ({navigation,route}) => {
       </View>
 
       <TouchableOpacity style={{alignSelf:'center',backgroundColor:'#4C586F',marginTop:5}}onPress={updateThreshold}>
-          <Text style={{padding:7,fontWeight:'bold',color:'white'}}>Update Threshold</Text>
+          <Text style={{padding:7,fontWeight:'bold',color:'white',fontSize:18}}>Update Threshold</Text>
       </TouchableOpacity>
 {/* 
       <Button style={{width:'30',backgroundColor:'grey'}} onPress={updateThreshold} title='Update threshold'/> */}
@@ -100,8 +100,8 @@ const device = StyleSheet.create({
         alignItems: 'flex-start',
     },
     text:{
-      fontSize:16,
       fontWeight:'normal',
+      fontSize:18,
 
     }
 })
