@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 const LightDetail = ({detail,name}) => {
     const navigation=useNavigation();
     function gotoSensorDetaiPage(){
-        navigation.navigate("SensorDetail",{detail,name})
+        navigation.navigate("Sensor Detail",{detail,name})
     }
     let currentState="I'm good";
     const lowerBound=detail.threshold.lowerBound;

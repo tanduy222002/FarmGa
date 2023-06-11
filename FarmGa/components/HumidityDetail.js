@@ -7,14 +7,14 @@ import { useNavigation } from '@react-navigation/native';
 
 const HumidityDetail = ({detail,name}) => {
     let currentState="It's a nice day";
+    let ratio="+0%"
     const lowerBound=detail.threshold.lowerBound;
     const upperBound=detail.threshold.upperBound;
     const currentValue= parseFloat(detail.data[0].value);
     const lastCurrentValue= parseFloat(detail.data[1].value);
-    let ratio="+0%"
     const navigation=useNavigation();
     function gotoSensorDetaiPage(){
-        navigation.navigate("SensorDetail",{detail,name})
+        navigation.navigate("Sensor Detail",{detail,name})
     }
 
     if (currentValue>upperBound || currentValue<lowerBound) {

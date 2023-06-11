@@ -9,17 +9,10 @@ const Home = () => {
   return (
     
     <Stack.Navigator screenOptions={{headerShown: true, headerTitleAlign:'center'}}>
-    <Stack.Screen name="SenSorView" component={SensorView} 
-    // options={{
-    //   header: (props) =>
-    //   (
-    //     <View style={{height: '25%'}}>
-    //     <Image style={{height:windowHeight,width:400}} source={require('../assets/plant1.jpg')}/>
-    //     </View>
-    //   ),
-    // }}
+    <Stack.Screen name="SenSor View" component={SensorView} options={{headerShown:false,}}
+
     />
-    <Stack.Screen name="SensorDetail" component={SensorDetail}/>
+    <Stack.Screen name="Sensor Detail" component={SensorDetail}/>
     </Stack.Navigator>
   );
 }

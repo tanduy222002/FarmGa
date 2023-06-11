@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, ScrollView,TouchableOpacity,Alert} from 'react-
 import React, { useState ,useEffect} from 'react'
 import Slider from '@react-native-community/slider';
 import axios from "axios"
+import { REACT_APP_LOCALHOST } from '../constance'
 
 const SensorDetail = ({navigation,route}) => {
   let lowerBound=route.params.detail.threshold.lowerBound;
@@ -18,7 +19,7 @@ const SensorDetail = ({navigation,route}) => {
         return;
       }
 
-      await axios.post('http://192.168.1.4:3000/update/threshold', 
+      await axios.post(`${REACT_APP_LOCALHOST}/update/threshold`, 
         {"type":route.params.detail.type,"name":route.params.name,"upperBound":upperValue,"lowerBound":lowerValue}
       )
       .then(function (response) {
@@ -35,7 +36,7 @@ const SensorDetail = ({navigation,route}) => {
 
   }
   return (
-    <ScrollView style={{}}>
+    <ScrollView style={{marginTop:20}}>
     <View style={[device.container]}>
         <Text style={device.text}>Name: {route.params.detail.name}</Text>
         <Text style={device.text}>Range: {route.params.detail.range}°C</Text>
@@ -74,7 +75,7 @@ const SensorDetail = ({navigation,route}) => {
       </View>
 
       <TouchableOpacity style={{alignSelf:'center',backgroundColor:'#4C586F',marginTop:5}}onPress={updateThreshold}>
-          <Text style={{padding:7,fontWeight:'bold',color:'white'}}>Cập nhật ngưỡng</Text>
+          <Text style={{padding:7,fontWeight:'bold',color:'white'}}>Update Threshold</Text>
       </TouchableOpacity>
 {/* 
       <Button style={{width:'30',backgroundColor:'grey'}} onPress={updateThreshold} title='Update threshold'/> */}

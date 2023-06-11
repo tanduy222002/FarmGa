@@ -25,10 +25,9 @@ const SensorView = ({navigation}) => {
  
   
   
-  
   return (
     
-    <ScrollView style={{backgroundColor:'#ebf2f6',}} >
+    <ScrollView style={{backgroundColor:'#ebf2f6',marginTop:30}} >
       <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center',padding:10,width:'100%'}}>
           <Image style={{borderRadius:1000,width:100,height:100,}} source={require('../assets/durian.png')} />
           <View style={{padding:10,flexDirection:'column',justifyContent:'center',alignItems:'flex-start'}}>
@@ -62,14 +61,15 @@ const SensorView = ({navigation}) => {
         <Area name={area.name} key={index}>
           <TemperatureDetail 
             detail={area.record[0]}
+            name={area.name}
           />
           <HumidityDetail  
             detail={area.record[1]}
-            
+            name={area.name}
           />
           <LightDetail 
             detail={area.record[2]} 
-            
+            name={area.name}
           />
         </Area>
       )
