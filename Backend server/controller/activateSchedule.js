@@ -83,7 +83,7 @@ function readyToStart(schedule) {
     return (
         schedule.date == currentDate 
         && scheduleHour == currentHour 
-        && parseInt(scheduleMinute) - parseInt(currentMinute) == 5
+        && parseInt(scheduleMinute) - parseInt(currentMinute) >= 1
     ) 
 } 
 

@@ -20,7 +20,7 @@ const cloudSync = async()=>{
     await axios.get(`https://io.adafruit.com/api/v2/${process.env.USER_NAME}/feeds/${process.env.LIGHT_FEED_KEY}`).then((response)=> light_value = response.data.last_value)
 
     await axios.get(`https://io.adafruit.com/api/v2/${process.env.USER_NAME}/feeds/${process.env.HUMIDITY_FEED_KEY}`).then((response)=> humidity_value = response.data.last_value)
-
+    console.log(temp_value);
     let area = await Area.findOne({ name: 'KV1' }).exec();
     currenTime = new Date();
     updateObject(area,0,temp_value,"Celcius",currenTime);

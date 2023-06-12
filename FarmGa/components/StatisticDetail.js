@@ -4,8 +4,9 @@ import { Dimensions } from "react-native";
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import axios from "axios"
 import Chart from './Chart'
-
+import { REACT_APP_LOCALHOST } from '../constance'
 const screenWidth = Dimensions.get("window").width - 48;
+
 
 const areaTemp = [
     {
@@ -22,61 +23,61 @@ const areaTemp = [
             "type": "Temperature",
             "data": [
                 {
-                    "date": "2023-06-04T11:23:25.388Z",
+                    "date": "2023-06-11T11:23:25.388Z",
                     "value": "33.7",
                     "unit": "Celcius",
                     "_id": "64787fadf2b82ef3f376ae5d"
                 },
                 {
-                    "date": "2023-06-04T09:58:36.849Z",
-                    "value": "33.7",
+                    "date": "2023-06-10T09:58:36.849Z",
+                    "value": "33.5",
                     "unit": "Celcius",
                     "_id": "64786bcc0ef2d43d0223975d"
                 },
                 {
-                    "date": "2023-06-03T11:23:25.388Z",
-                    "value": "33.7",
+                    "date": "2023-06-09T11:23:25.388Z",
+                    "value": "32",
                     "unit": "Celcius",
                     "_id": "64787fadf2b82ef3f376ae5d"
                 },
                 {
-                    "date": "2023-06-03T09:58:36.849Z",
-                    "value": "33.7",
+                    "date": "2023-06-08T09:58:36.849Z",
+                    "value": "32.4",
                     "unit": "Celcius",
                     "_id": "64786bcc0ef2d43d0223975d"
                 },
                 {
-                    "date": "2023-06-02T11:23:25.388Z",
-                    "value": "33.7",
+                    "date": "2023-06-07T11:23:25.388Z",
+                    "value": "36",
                     "unit": "Celcius",
                     "_id": "64787fadf2b82ef3f376ae5d"
                 },
                 {
-                    "date": "2023-06-02T09:58:36.849Z",
-                    "value": "33.7",
+                    "date": "2023-06-06T09:58:36.849Z",
+                    "value": "31",
                     "unit": "Celcius",
                     "_id": "64786bcc0ef2d43d0223975d"
                 },
                 {
-                    "date": "2023-06-01T09:58:16.838Z",
-                    "value": "33.7",
+                    "date": "2023-06-05T09:58:16.838Z",
+                    "value": "34",
                     "unit": "Celcius",
                     "_id": "64786bb80ef2d43d02239731"
                 },
                 {
-                    "date": "2023-06-01T09:58:56.838Z",
-                    "value": "33.7",
+                    "date": "2023-06-04T09:58:56.838Z",
+                    "value": "33.5",
                     "unit": "Celcius",
                     "_id": "64786bb80ef2d43d02239731"
                 },
                 {
-                    "date": "2023-06-01T09:58:06.894Z",
+                    "date": "2023-06-03T09:58:06.894Z",
                     "value": "33.7",
                     "unit": "Celcius",
                     "_id": "64786bae0ef2d43d0223971b"
                 },
                 {
-                    "date": "2023-05-31T09:58:16.838Z",
+                    "date": "2023-06-02T09:58:16.838Z",
                     "value": "33.2",
                     "unit": "Celcius",
                     "_id": "64786bb80ef2d43d02239731"
@@ -210,23 +211,54 @@ const areaTemp = [
             "type": "Humidity",
             "data": [
                 {
-                    "date": "2023-06-01T11:23:25.388Z",
-                    "value": "52.4",
+                    "date": "2023-06-11T11:23:25.388Z",
+                    "value": "61",
                     "unit": "%",
                     "_id": "64787fadf2b82ef3f376ae5e"
                 },
                 {
-                    "date": "2023-06-01T09:58:36.849Z",
-                    "value": "52.4",
+                    "date": "2023-06-10T09:58:36.849Z",
+                    "value": "65",
                     "unit": "%",
                     "_id": "64786bcc0ef2d43d0223975e"
                 },
                 {
-                    "date": "2023-06-01T09:58:26.785Z",
+                    "date": "2023-06-09T09:58:26.785Z",
+                    "value": "60",
+                    "unit": "%",
+                    "_id": "64786bc20ef2d43d02239748"
+                },
+                {
+                    "date": "2023-06-08T09:58:26.785Z",
+                    "value": "52.1",
+                    "unit": "%",
+                    "_id": "64786bc20ef2d43d02239748"
+                },
+                {
+                    "date": "2023-06-07T09:58:26.785Z",
+                    "value": "53.2",
+                    "unit": "%",
+                    "_id": "64786bc20ef2d43d02239748"
+                },
+                {
+                    "date": "2023-06-06T09:58:26.785Z",
+                    "value": "53",
+                    "unit": "%",
+                    "_id": "64786bc20ef2d43d02239748"
+                },
+                {
+                    "date": "2023-06-05T09:58:26.785Z",
                     "value": "52.4",
                     "unit": "%",
                     "_id": "64786bc20ef2d43d02239748"
                 },
+                {
+                    "date": "2023-06-04T09:58:26.785Z",
+                    "value": "52.8",
+                    "unit": "%",
+                    "_id": "64786bc20ef2d43d02239748"
+                },
+             
             ],
             "_id": "642595564c366f9bb573d032"
         },
@@ -239,20 +271,50 @@ const areaTemp = [
             "type": "Light",
             "data": [
                 {
-                    "date": "2023-06-01T11:23:25.388Z",
-                    "value": "59",
+                    "date": "2023-06-11T11:23:25.388Z",
+                    "value": "58",
                     "unit": "lux",
                     "_id": "64787fadf2b82ef3f376ae5f"
                 },
                 {
-                    "date": "2023-06-01T09:58:36.849Z",
+                    "date": "2023-06-10T09:58:36.849Z",
                     "value": "59",
                     "unit": "lux",
                     "_id": "64786bcc0ef2d43d0223975f"
                 },
                 {
-                    "date": "2023-06-01T09:58:26.785Z",
+                    "date": "2023-06-09T09:58:26.785Z",
+                    "value": "63",
+                    "unit": "lux",
+                    "_id": "64786bc20ef2d43d02239749"
+                },
+                {
+                    "date": "2023-06-08T09:58:26.785Z",
+                    "value": "61",
+                    "unit": "lux",
+                    "_id": "64786bc20ef2d43d02239749"
+                },
+                {
+                    "date": "2023-06-07T09:58:26.785Z",
                     "value": "59",
+                    "unit": "lux",
+                    "_id": "64786bc20ef2d43d02239749"
+                },
+                {
+                    "date": "2023-06-06T09:58:26.785Z",
+                    "value": "58",
+                    "unit": "lux",
+                    "_id": "64786bc20ef2d43d02239749"
+                },
+                {
+                    "date": "2023-06-05T09:58:26.785Z",
+                    "value": "56",
+                    "unit": "lux",
+                    "_id": "64786bc20ef2d43d02239749"
+                },
+                {
+                    "date": "2023-06-04T09:58:26.785Z",
+                    "value": "54",
                     "unit": "lux",
                     "_id": "64786bc20ef2d43d02239749"
                 },
@@ -373,12 +435,13 @@ const StatisticDetail = ({type, navigateToDaily}) => {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        axios.get(`http://192.168.1.4:3000/area/all`)
+        axios.get(`${REACT_APP_LOCALHOST}/area/all`)
              .then((res) => {console.log('Get Area List') ;setAreaList(res.data)})
              .catch((error) => {console.log(error);setError(true)})
              .finally(() => {console.log('end') ;setLoading(false)})
     },[])
-    const lastWeekData = areaList!=undefined?getLastWeekData(areaList[0].record[type].data):getLastWeekData(areaTemp[0].record[type].data)
+    // const lastWeekData = areaList!=undefined?getLastWeekData(areaList[0].record[type].data):getLastWeekData(areaTemp[0].record[type].data)
+    const lastWeekData= getLastWeekData(areaTemp[0].record[type].data)
     // const lastWeekData = getLastWeekData(areaTemp[0].record[type].data)
     const lastWeekAvg = getLastWeekAvg(lastWeekData)
     // console.log(lastWeekData)
